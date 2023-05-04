@@ -1,4 +1,4 @@
-import { Box, Checkbox, Flex, Heading, Input, Radio } from "@chakra-ui/react";
+import { Box, Checkbox, Container, Flex, Heading, Image, Input, Radio, Select, Stack } from "@chakra-ui/react";
 import "../style/Product.css";
 import {
   Breadcrumb,
@@ -15,8 +15,37 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
+import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import {data} from "../component/data"
+import { FiHeart,FiShoppingCart } from "react-icons/fi";
+import {CiStar} from "react-icons/ci"
 
 function Product() {
+
+  function Star(rating) {
+    return (
+      <Box display="flex" alignItems="center">
+        {Array(5)
+          .fill("")
+          .map((_, i) => {
+            const roundedRating = Math.round(rating * 2) / 2;
+            if (roundedRating - i >= 1) {
+              return (
+                <BsStarFill
+                  key={i}
+                  style={{ marginLeft: "1" }}
+                  color={i < rating ? "orange" : "gray.300"}
+                />
+              );
+            }
+            if (roundedRating - i === 0.5) {
+              return <BsStarHalf key={i} style={{ marginLeft: "1" }} />;
+            }
+            return <BsStar key={i} style={{ marginLeft: "1" }} />;
+          })}
+      </Box>
+    );
+  }
   return (
     <div className="productspage">
       <Box>
@@ -311,7 +340,78 @@ function Product() {
             </Accordion>
           </Box>
         </Box>
-        <Box className="secondbox"></Box>
+        <Box className="secondbox">
+          <Box>
+            <Image src="https://img9.hkrtcdn.com/23185/bnr_2318418_o.png" alt="poster"/>
+          </Box>
+          <br />
+          <Flex justifyContent={"space-between"} alignItems={"center"}>
+           <Heading fontSize={"25px"}>Whey Protein Powder</Heading>
+           <Flex justifyContent={"space-between"} alignItems={"center"} gap="10px">
+            <Image src="https://static1.hkrtcdn.com/hknext/static/media/common/misc/authentic-plp.svg"/>
+            <h2>100% Original & Authentic</h2>
+           </Flex>
+          </Flex>
+          <br />
+          <Flex gap={"20px"}>
+            <p style={{fontSize:"25px",color:"orange"}}>{Star(4.4)}</p>
+            <p style={{fontSize:"17px"}}>4.4(18.3k Reviews)</p>
+          </Flex>
+          <br />
+          <p style={{textAlign:"left",fontSize:"18px"}}>
+            Whey protein provides all the necessary protein and nutrients, helps in improving great energy levels, and allows you to achieve your bodybuilding goals safely and effectively. It also benefits the overall health of the body with better metabolism, right nutrition, immune health, muscle growth & recovery, etc while being easily digestible and low in calories. If you want a powerful tool to get the results from the work you are putting in your training or your daily well being, then buying a quality whey protein supplement should be your next move.
+          </p>
+          <br />
+          <br />
+          <Flex justifyContent={"space-between"} alignItems={"center"}>
+            <Heading fontSize={"22px"}>(746 items)</Heading>
+            <Flex justifyContent={"center"} alignItems={"center"}>
+              <h1>Sort By : </h1>
+              <Select>
+                <option value="">Price --Low to High</option>
+                <option value="">Price --High to Low</option>
+                <option value="">Rating --High to Low</option>
+              </Select>
+
+            </Flex>
+          </Flex>
+          <br />
+          <br />
+          <Box className="productboxes">
+            {data.map((el)=>(
+              <Box key={el._id} className="productboxeschild">
+                <Flex>
+                  <Box fontSize={"25px"}><FiHeart/></Box>
+                </Flex>
+                <Image src={el.img}/>
+                <hr />
+                <Flex justifyContent={"space-between"} alignItems={"center"} marginTop={"5px"}>
+                  <Flex alignItems={"center"} padding="3px 7px" backgroundColor={"#00B5B7"} color="white">
+                    <p>{el.ratings}</p>
+                    <p><CiStar/></p>
+                  </Flex>
+                  <p>{el.review} review</p>
+                </Flex>
+                <br />
+                <Box noOfLines={2} style={{fontWeight:"bold"}}>{el.title}</Box>
+                <br />
+                <Flex justifyContent={"space-between"} alignItems={"center"}>
+                  <p style={{fontWeight:"bold"}}>₹{el.price}</p>
+                  <p className="maxprice">₹{el.maxprice}</p>
+                  <p>{Math.floor((el.price/el.maxprice)*100)}% off</p>
+                </Flex>
+                <br />
+                <Box className="Add-to-cart-button">
+                  <p><FiShoppingCart/></p>
+                  <p>Add to Cart</p>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+          
+        </Box>
+        
+
       </Box>
     </div>
   );

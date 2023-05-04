@@ -1,0 +1,38 @@
+*{
+    font-family: sans-serif;
+}
+.big-box{
+    width:77%;
+    margin:auto;
+    margin-top:50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+
+}
+.first-img-box{
+    width:48%;
+    padding:10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+
+}
+.first-img-box-one{
+    width:20%;
+    display: grid;
+    gap:20px;
+}
+.first-img-box-two{
+    width:76%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding:10px;
+
+}
+
+.second-title-box{
+    width:48%;
+    /* border:1px solid blue; */
+    text-align: left;
+
+}
