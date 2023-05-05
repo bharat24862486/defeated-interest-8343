@@ -7,7 +7,6 @@ const productRouter = express.Router();
 productRouter.get("/", async (req, res) => {
   try {
     const query = req.query;
-    // const query = {};
     const product = await ProductModel.find(query);
     res
       .status(200)
@@ -32,9 +31,25 @@ productRouter.post("/create", async (req, res) => {
 });
 
 // PRODUCT UPDATE REQUEST
-productRouter.patch("/update/:id", async (req, res) => {});
+productRouter.patch("/update/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await ProductModel.findByIdAndUpdate({ _id: id }, req.body);
+    res.status(200).send({ msg: "Product Updated!!", ok: true });
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
 
 // PRODUCT DELETE REQUEST
-productRouter.delete("/delete/:id", async (req, res) => {});
+productRouter.delete("/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+   await ProductModel.findByIdAndDelete({ _id: id });
+    res.status(200).send({ msg: "Product Deleted!!", ok: true });
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
 
 module.exports = { productRouter };
