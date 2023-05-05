@@ -20,6 +20,7 @@ let data = {
 
 function SingleProduct() {
     const [imagedata,setImageData]=useState(data.img[0])
+    const [res,setRes]=useState({})
   
   return (
     <div>
