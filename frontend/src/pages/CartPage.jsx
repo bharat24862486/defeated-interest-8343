@@ -38,9 +38,11 @@ cartItems.length==0?<Center mt={'3%'}>
     </VStack>
 
 </Center>:<>
-<Heading pb={'2%'} pt={'3%'} bg='#EEEEEE'>Shopping Cart</Heading>
+<Heading pb={'1%'} pt={'3%'} bg='#EEEEEE'>Cart Page</Heading>
         <Grid display={'flex'} justifyContent={['space-around','space-around','space-evenly']} bg='#EEEEEE' flexDirection={['column','column','row','row']} >
-            <Box w={['50%',"80%",'60%']} bg='white' ml={'auto'} mr='auto'>
+            <Box w={['50%',"80%",'60%']} bg='white' mb={'5%'} ml={'auto'} mr='auto'borderRadius={'10'} >
+                <Text fontSize={'20'} m={'2%'} display={'flex'} alignItems={'start'}>Shopping Cart ({cartItems.length} Items)</Text>
+                <Divider/>
                 {
           cartItems.map((ele)=>{
               return <Box key={ele.id}>
