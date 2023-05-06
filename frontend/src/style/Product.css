@@ -67,3 +67,61 @@
     background-color: orange;
     color:white
 }
+
+
+
+/* media query small screen */
+@media all and (min-width:279px) and (max-width:480px){
+    .productspage{
+        width:100%;
+        margin:auto;
+        padding:30px;
+    }
+
+    .firstbox{
+       display:none
+    
+    }
+    .secondbox{
+        /* border:1px solid black; */
+        width:100%;
+    }
+    .productboxes{
+        display:grid;
+        grid-template-columns: repeat(1,1fr);
+        align-items: center;
+        gap:10px;
+        
+    }
+    
+
+}
+
+/* media query medium screen */
+@media all and (min-width:481px) and (max-width:806px){
+    .productspage{
+        width:100%;
+        margin:auto;
+        padding:30px;
+    }
+
+    .firstbox{
+       display:none
+    
+    }
+    .secondbox{
+        /* border:1px solid black; */
+        width:100%;
+    }
+    .productboxes{
+        display:grid;
+        grid-template-columns: repeat(2,1fr);
+        align-items: center;
+        gap:10px;
+        
+    }
+    
+    
+   
+
+}

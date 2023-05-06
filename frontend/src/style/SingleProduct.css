@@ -21,6 +21,7 @@
 .first-img-box-one{
     width:20%;
     display: grid;
+    align-items: center;
     gap:20px;
 }
 .first-img-box-two{
@@ -34,5 +35,53 @@
     width:48%;
     /* border:1px solid blue; */
     text-align: left;
+
+}
+
+.Add-to-cart-button-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    border:1px solid orange;
+    color:orange;
+    padding:8px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.Add-to-cart-button-box:hover{
+    background-color: orange;
+    color:white
+}
+.quick-buy-button{
+    padding:8px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: orange;
+    color:white;
+}
+
+.delivery-services{
+    padding:10px;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+
+}
+
+
+/* media query small screen */
+@media all and (min-width:279px) and (max-width:480px){
+   
+    
+
+}
+
+/* media query medium screen */
+@media all and (min-width:481px) and (max-width:906px){
+    
+   
 
 }

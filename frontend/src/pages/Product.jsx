@@ -1,4 +1,4 @@
-import { Box, Checkbox, Container, Flex, Heading, Image, Input, Radio, Select, Stack } from "@chakra-ui/react";
+import { Box, Checkbox, Container, Flex, Heading, Image, Input, Radio, Select, Stack, Text } from "@chakra-ui/react";
 import "../style/Product.css";
 import {
   Breadcrumb,
@@ -59,9 +59,9 @@ function Product() {
             </BreadcrumbLink>
           </BreadcrumbItem>
 
-          <BreadcrumbItem>
+          {/* <BreadcrumbItem>
             <BreadcrumbLink href="#">Sports Nutrition</BreadcrumbLink>
-          </BreadcrumbItem>
+          </BreadcrumbItem> */}
           <BreadcrumbItem>
             <BreadcrumbLink href="#">Proteins</BreadcrumbLink>
           </BreadcrumbItem>
@@ -346,7 +346,7 @@ function Product() {
           </Box>
           <br />
           <Flex justifyContent={"space-between"} alignItems={"center"}>
-           <Heading fontSize={"25px"}>Whey Protein Powder</Heading>
+           <Heading size='md'>Whey Protein Powder</Heading>
            <Flex justifyContent={"space-between"} alignItems={"center"} gap="10px">
             <Image src="https://static1.hkrtcdn.com/hknext/static/media/common/misc/authentic-plp.svg"/>
             <h2>100% Original & Authentic</h2>
@@ -358,15 +358,15 @@ function Product() {
             <p style={{fontSize:"17px"}}>4.4(18.3k Reviews)</p>
           </Flex>
           <br />
-          <p style={{textAlign:"left",fontSize:"18px"}}>
+          <Text fontSize='md' textAlign={"left"}>
             Whey protein provides all the necessary protein and nutrients, helps in improving great energy levels, and allows you to achieve your bodybuilding goals safely and effectively. It also benefits the overall health of the body with better metabolism, right nutrition, immune health, muscle growth & recovery, etc while being easily digestible and low in calories. If you want a powerful tool to get the results from the work you are putting in your training or your daily well being, then buying a quality whey protein supplement should be your next move.
-          </p>
+          </Text>
           <br />
           <br />
           <Flex justifyContent={"space-between"} alignItems={"center"}>
-            <Heading fontSize={"22px"}>(746 items)</Heading>
+            <Heading size='md'>(746 items)</Heading>
             <Flex justifyContent={"center"} alignItems={"center"}>
-              <h1>Sort By : </h1>
+              <Heading fontSize={"md"}>Sort:</Heading>
               <Select>
                 <option value="">Price --Low to High</option>
                 <option value="">Price --High to Low</option>
