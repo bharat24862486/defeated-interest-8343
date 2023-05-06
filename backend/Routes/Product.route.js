@@ -1,6 +1,7 @@
 const express = require("express");
 const { ProductModel } = require("../Models/Prodcut.model");
 const { authorization } = require("../Middleware/Authorization");
+const { authentication } = require("../Middleware/Authentication");
 const productRouter = express.Router();
 
 // PRODUCT GET REQUEST
@@ -30,6 +31,8 @@ productRouter.get("/", async (req, res) => {
     res.status(400).send({ error: error.message });
   }
 });
+
+productRouter.use(authentication);
 
 // AUTHORIZATION MIDDLEWARE
 productRouter.use(authorization);
