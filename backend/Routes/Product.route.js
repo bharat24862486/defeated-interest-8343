@@ -6,8 +6,23 @@ const productRouter = express.Router();
 // PRODUCT GET REQUEST
 productRouter.get("/", async (req, res) => {
   try {
-    const query = req.query;
-    const product = await ProductModel.find(query);
+    const { title,brand,category,page,} = req.query;
+    const query = {};
+    if(title){
+      query.title = {$regex:title,$options:'i'};
+    }
+    if(brand){
+      query.brand = brand;
+    }
+    if(page){
+      pagination = (page-1)*2;
+    }else{
+      pagination = 0;
+    }
+    if(category){
+      query.category = category;
+    }
+    const product = await ProductModel.find(query).skip(pagination).limit(6);
     res
       .status(200)
       .send({ msg: "All Healthcare Products!!", product, ok: true });
