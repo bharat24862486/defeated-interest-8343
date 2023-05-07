@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { connection } = require("./Config/db");
 const { userRouter } = require("./Routes/User.route");
 const { productRouter } = require("./Routes/Product.route");
@@ -9,10 +10,16 @@ const app = express();
 const cors = require("cors");
 app.use(cors());
 app.use(express.json());
-
+app.use(cors());
 app.use("/user", userRouter);
+
 app.use(authentication);
 app.use("/product", productRouter);
+
+// app.use(authentication);
+app.use("/product", productRouter);
+app.use(authentication);
+
 app.use("/cart", cartRouter);
 app.use("/order", orderRouter);
 

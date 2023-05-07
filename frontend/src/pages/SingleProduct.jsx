@@ -87,7 +87,7 @@ function SingleProduct() {
             >
               <Button
                 onClick={() => setQuantity(quantity - 1)}
-                disabled={quantity <= 1}
+                isDisabled={quantity <= 1}
               >
                 -
               </Button>

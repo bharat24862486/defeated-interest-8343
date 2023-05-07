@@ -38,15 +38,15 @@ const PaymentPage = () => {
           <Heading size={"md"} m="5%">
             Shipping Information
           </Heading>
-          <FormLabel>Full name</FormLabel>
+          <FormLabel ml={'2%'}>Full name</FormLabel>
           <Input placeholder="First name" type={"text"}  />
 
-          <FormLabel>Street address</FormLabel>
-          <Input placeholder="123 sabang" type={"text"}  />
-          <FormLabel>Zipcode</FormLabel>
-          <Input   type={"number"} value={721144} />
-          <FormLabel>Email</FormLabel>
-          <Input placeholder="animesh@gmail.com" type={"email"}  />
+          <FormLabel ml={'2%'} mt={'2%'}>Street address</FormLabel>
+          <Input placeholder="Enter Address" type={"text"}  />
+          <FormLabel ml={'2%'} mt={'2%'}>Zipcode</FormLabel>
+          <Input placeholder='Enter Zipcode'  type={" number"} />
+          <FormLabel ml={'2%'} mt={'2%'}>Email</FormLabel>
+          <Input placeholder="Enter E-mail" type={"email"}  />
           <Checkbox defaultChecked m={"4%"}>
             Billing address same as shipping
           </Checkbox>
@@ -55,13 +55,13 @@ const PaymentPage = () => {
       <Box m={"5%"}>
         <FormControl isRequired>
           <Heading mb='2%' size={"md"}>Payment Information</Heading>
-          <FormLabel>Debit card number</FormLabel>
+          <FormLabel ml={'2%'} mt={'2%'}>Debit card number</FormLabel>
           <Input placeholder="Card number" type={"number"} />
-          <FormLabel>Name on card name</FormLabel>
+          <FormLabel ml={'2%'} mt={'2%'}>Name on card name</FormLabel>
           <Input placeholder="Card name" type={"text"}/>
-          <FormLabel>Expiry date</FormLabel>
+          <FormLabel ml={'2%'} mt={'2%'}>Expiry date</FormLabel>
           <Input placeholder="Phone number" type={"date"}  />
-          <FormLabel>cvv</FormLabel>
+          <FormLabel ml={'2%'} mt={'2%'}>CVV</FormLabel>
           <Input  type={"number"}  />
         </FormControl>
       </Box>

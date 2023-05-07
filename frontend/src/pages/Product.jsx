@@ -1,4 +1,17 @@
-import { Box, Checkbox, Container, Flex, Heading, Image, Input, Radio, Select, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  Flex,
+  Heading,
+  Image,
+  Input,
+  Radio,
+  Select,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import "../style/Product.css";
 import {
   Breadcrumb,
@@ -16,11 +29,128 @@ import {
   AccordionIcon,
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
-import {data} from "../component/data"
-import { FiHeart,FiShoppingCart } from "react-icons/fi";
-import {CiStar} from "react-icons/ci"
+import { data } from "../component/data";
+import { FiHeart, FiShoppingCart } from "react-icons/fi";
+import { CiStar } from "react-icons/ci";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getProductError,
+  getProductRequest,
+  getProductSuccess,
+} from "../redux/ProductReducer/action";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 function Product() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const initialsort = searchParams.getAll("sort")[0];
+  const [sort, setSort] = useState(initialsort || "");
+
+  
+
+  const initialcategory = searchParams.getAll("category")[0];
+  const [category, setCategory] = useState(initialcategory || "");
+
+  const initialdiscount = searchParams.getAll("discount")[0];
+  const [discount, setDiscount] = useState(initialdiscount || 0);
+  console.log("ini",initialdiscount)
+
+  const initialrating = searchParams.getAll("rating")[0];
+  const [rating, setRating] = useState(initialrating || 0);
+
+  const initialprice = searchParams.getAll("price")[0];
+  const [price, setPrice] = useState(initialprice || 0);
+
+  const initialpage=searchParams.getAll("page")[0]
+  const [page, setPage] = useState(initialpage || 1);
+
+  const location = useLocation();
+  console.log(location);
+
+  useEffect(() => {
+    let params = {};
+    if (sort) {
+      params.sort = sort;
+    }
+    if (category) {
+      params.category = category;
+    }
+    if (discount) {
+      params.discount = discount;
+    }
+    if (rating) {
+      params.rating = rating;
+    }
+    if(price) {
+      params.price = price;
+    }
+    if(page){
+      params.page=page
+    }
+    setSearchParams(params);
+  }, [
+    sort,
+    category,
+    discount,
+    rating,
+    price,
+    page,
+   
+    location.search
+    
+  ]);
+
+  useEffect(() => {
+    if(sort || category || discount || rating || price){
+      getProductData({ sort, category, discount, rating, price, page });
+
+    }else{
+      getProductData1()
+    }
+  }, [sort, category, discount, rating, price,page]);
+
+  const dispatch = useDispatch();
+  const { isLoading, isError, product } = useSelector(
+    (store) => store.productReducer
+  );
+  console.log(product);
+
+  const getProductData = ({ sort, category, discount, rating, price, page }) => {
+    dispatch(getProductRequest());
+    axios
+      .get("https://frantic-lime-gabardine.cyclic.app/product", {
+        params: {
+          sort: sort,
+          category: category,
+          discount: discount,
+          rating: rating,
+          price: price,
+          page:page
+        },
+      })
+      .then((res) => {
+        //console.log("res",res)
+        dispatch(getProductSuccess(res.data.product));
+      })
+      .catch((err) => {
+        dispatch(getProductError());
+      });
+  };
+
+  const getProductData1 = () => {
+    dispatch(getProductRequest());
+    axios
+      .get("https://frantic-lime-gabardine.cyclic.app/product")
+      .then((res) => {
+        //console.log("res",res)
+        dispatch(getProductSuccess(res.data.product));
+      })
+      .catch((err) => {
+        dispatch(getProductError());
+      });
+  };
 
   function Star(rating) {
     return (
@@ -149,7 +279,7 @@ function Product() {
                       textAlign="left"
                       fontWeight={"bold"}
                     >
-                      By Brand
+                      By Category
                     </Box>
                     <AccordionIcon />
                   </AccordionButton>
@@ -161,19 +291,38 @@ function Product() {
                   textAlign={"left"}
                 >
                   <Flex justifyContent={"space-between"} alignItems={"center"}>
-                    <Checkbox>HealthKart</Checkbox>
+                  
+                    <Checkbox
+                      value={"Fitness"}
+                      onChange={(e) => setCategory(e.target.value)}
+                      isChecked={category=="Fitness"}
+                    >
+                      Fitness
+                    </Checkbox>
                     <p>1</p>
                   </Flex>
                   <br />
 
                   <Flex justifyContent={"space-between"} alignItems={"center"}>
-                    <Checkbox>MuscleBlaze</Checkbox>
+                    <Checkbox
+                      value="Vitamin"
+                      onChange={(e) => setCategory(e.target.value)}
+                      isChecked={category=="Vitamin"}
+                    >
+                      Vitamin
+                    </Checkbox>
                     <p>185</p>
                   </Flex>
                   <br />
 
                   <Flex justifyContent={"space-between"} alignItems={"center"}>
-                    <Checkbox>ON</Checkbox>
+                    <Checkbox
+                      value="Ayurveda"
+                      onChange={(e) => setCategory(e.target.value)}
+                      isChecked={category=="Ayurveda"}
+                    >
+                      Ayurveda
+                    </Checkbox>
                     <p>16</p>
                   </Flex>
                   <br />
@@ -222,19 +371,49 @@ function Product() {
                   height="250px"
                   textAlign={"left"}
                 >
-                  <Radio>10% And Above</Radio>
+                  <Checkbox
+                    value={10}
+                    onChange={(e) => setDiscount(e.target.value)}
+                    isChecked={discount==10}
+                  >
+                    10% And Above
+                  </Checkbox>
                   <br />
                   <br />
-                  <Radio>20% And Above</Radio>
+                  <Checkbox
+                    value={20}
+                    onChange={(e) => setDiscount(e.target.value)}
+                    isChecked={discount==20}
+                  >
+                    20% And Above
+                  </Checkbox>
                   <br />
                   <br />
-                  <Radio>30% And Above</Radio>
+                  <Checkbox
+                    value={30}
+                    onChange={(e) => setDiscount(e.target.value)}
+                    isChecked={discount==30}
+                  >
+                    30% And Above
+                  </Checkbox>
                   <br />
                   <br />
-                  <Radio>40% And Above</Radio>
+                  <Checkbox
+                    value={40}
+                    onChange={(e) => setDiscount(e.target.value)}
+                    isChecked={discount==40}
+                  >
+                    40% And Above
+                  </Checkbox>
                   <br />
                   <br />
-                  <Radio>50% And Above</Radio>
+                  <Checkbox
+                    value={50}
+                    onChange={(e) => setDiscount(e.target.value)}
+                    isChecked={discount==50}
+                  >
+                    50% And Above
+                  </Checkbox>
                   <br />
                   <br />
                 </AccordionPanel>
@@ -264,19 +443,49 @@ function Product() {
                   height="250px"
                   textAlign={"left"}
                 >
-                  <Radio>5 Ratings</Radio>
+                  <Checkbox
+                    value={5}
+                    onChange={(e) => setRating(e.target.value)}
+                    isChecked={rating==5}
+                  >
+                    5 Ratings
+                  </Checkbox>
                   <br />
                   <br />
-                  <Radio>4 Ratings And Above</Radio>
+                  <Checkbox
+                    value={4}
+                    onChange={(e) => setRating(e.target.value)}
+                    isChecked={rating==4}
+                  >
+                    4 Ratings And Above
+                  </Checkbox>
                   <br />
                   <br />
-                  <Radio>3 Ratings And Above</Radio>
+                  <Checkbox
+                    value={3}
+                    onChange={(e) => setRating(e.target.value)}
+                    isChecked={rating==3}
+                  >
+                    3 Ratings And Above
+                  </Checkbox>
                   <br />
                   <br />
-                  <Radio>2 Ratings And Above</Radio>
+                  <Checkbox
+                    value={2}
+                    onChange={(e) => setRating(e.target.value)}
+                    isChecked={rating==2}
+                  >
+                    2 Ratings And Above
+                  </Checkbox>
                   <br />
                   <br />
-                  <Radio>1 And Above</Radio>
+                  <Checkbox
+                    value={1}
+                    onChange={(e) => setRating(e.target.value)}
+                    isChecked={rating==1}
+                  >
+                    1 And Above
+                  </Checkbox>
                   <br />
                   <br />
                 </AccordionPanel>
@@ -307,32 +516,68 @@ function Product() {
                   textAlign={"left"}
                 >
                   <Flex justifyContent={"space-between"} alignItems={"center"}>
-                    <Checkbox>1500 And Below</Checkbox>
+                    <Checkbox
+                      value={500}
+                      onChange={(e) => setPrice(e.target.value)}
+                      isChecked={price==500}
+                    >
+                      500 And Above
+                    </Checkbox>
                   </Flex>
                   <br />
 
                   <Flex justifyContent={"space-between"} alignItems={"center"}>
-                    <Checkbox>1,501-3,000</Checkbox>
+                    <Checkbox
+                      value={1501}
+                      onChange={(e) => setPrice(e.target.value)}
+                      isChecked={price==1501}
+                    >
+                      1,501 And Above
+                    </Checkbox>
                   </Flex>
                   <br />
 
                   <Flex justifyContent={"space-between"} alignItems={"center"}>
-                    <Checkbox>3,001-4,500</Checkbox>
+                    <Checkbox
+                      value={3001}
+                      onChange={(e) => setPrice(e.target.value)}
+                      isChecked={price==3001}
+                    >
+                      3,001 And Above
+                    </Checkbox>
                   </Flex>
                   <br />
 
                   <Flex justifyContent={"space-between"} alignItems={"center"}>
-                    <Checkbox>4,501-6,000</Checkbox>
+                    <Checkbox
+                      value={4501}
+                      onChange={(e) => setPrice(e.target.value)}
+                      isChecked={price==4501}
+                    >
+                      4,501 And Above
+                    </Checkbox>
                   </Flex>
                   <br />
 
                   <Flex justifyContent={"space-between"} alignItems={"center"}>
-                    <Checkbox>6,001-7,500</Checkbox>
+                    <Checkbox
+                      value={6001}
+                      onChange={(e) => setPrice(e.target.value)}
+                      isChecked={price==6001}
+                    >
+                      6,001 And Above
+                    </Checkbox>
                   </Flex>
                   <br />
 
                   <Flex justifyContent={"space-between"} alignItems={"center"}>
-                    <Checkbox>7,501-9,000</Checkbox>
+                    <Checkbox
+                      value={7501}
+                      onChange={(e) => setPrice(e.target.value)}
+                      isChecked={price==7501}
+                    >
+                      7,501 And Above
+                    </Checkbox>
                   </Flex>
                   <br />
                 </AccordionPanel>
@@ -342,76 +587,120 @@ function Product() {
         </Box>
         <Box className="secondbox">
           <Box>
-            <Image src="https://img9.hkrtcdn.com/23185/bnr_2318418_o.png" alt="poster"/>
+            <Image
+              src="https://img9.hkrtcdn.com/23185/bnr_2318418_o.png"
+              alt="poster"
+            />
           </Box>
           <br />
           <Flex justifyContent={"space-between"} alignItems={"center"}>
-           <Heading size='md'>Whey Protein Powder</Heading>
-           <Flex justifyContent={"space-between"} alignItems={"center"} gap="10px">
-            <Image src="https://static1.hkrtcdn.com/hknext/static/media/common/misc/authentic-plp.svg"/>
-            <h2>100% Original & Authentic</h2>
-           </Flex>
+            <Heading size="md">Whey Protein Powder</Heading>
+            <Flex
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              gap="10px"
+            >
+              <Image src="https://static1.hkrtcdn.com/hknext/static/media/common/misc/authentic-plp.svg" />
+              <h2>100% Original & Authentic</h2>
+            </Flex>
           </Flex>
           <br />
           <Flex gap={"20px"}>
-            <p style={{fontSize:"25px",color:"orange"}}>{Star(4.4)}</p>
-            <p style={{fontSize:"17px"}}>4.4(18.3k Reviews)</p>
+            <p style={{ fontSize: "25px", color: "orange" }}>{Star(4.4)}</p>
+            <p style={{ fontSize: "17px" }}>4.4(18.3k Reviews)</p>
           </Flex>
           <br />
-          <Text fontSize='md' textAlign={"left"}>
-            Whey protein provides all the necessary protein and nutrients, helps in improving great energy levels, and allows you to achieve your bodybuilding goals safely and effectively. It also benefits the overall health of the body with better metabolism, right nutrition, immune health, muscle growth & recovery, etc while being easily digestible and low in calories. If you want a powerful tool to get the results from the work you are putting in your training or your daily well being, then buying a quality whey protein supplement should be your next move.
+          <Text fontSize="md" textAlign={"left"}>
+            Whey protein provides all the necessary protein and nutrients, helps
+            in improving great energy levels, and allows you to achieve your
+            bodybuilding goals safely and effectively. It also benefits the
+            overall health of the body with better metabolism, right nutrition,
+            immune health, muscle growth & recovery, etc while being easily
+            digestible and low in calories. If you want a powerful tool to get
+            the results from the work you are putting in your training or your
+            daily well being, then buying a quality whey protein supplement
+            should be your next move.
           </Text>
           <br />
           <br />
           <Flex justifyContent={"space-between"} alignItems={"center"}>
-            <Heading size='md'>(746 items)</Heading>
+            <Heading size="md">({product.length} items)</Heading>
             <Flex justifyContent={"center"} alignItems={"center"}>
               <Heading fontSize={"md"}>Sort:</Heading>
-              <Select>
-                <option value="">Price --Low to High</option>
-                <option value="">Price --High to Low</option>
-                <option value="">Rating --High to Low</option>
+              <Select value={sort} onChange={(e) => setSort(e.target.value)}>
+                <option value="1">Price --Low to High</option>
+                <option value="-1">Price --High to Low</option>
               </Select>
-
             </Flex>
           </Flex>
           <br />
           <br />
           <Box className="productboxes">
-            {data.map((el)=>(
+            {product && product.map((el) => (
               <Box key={el._id} className="productboxeschild">
                 <Flex>
-                  <Box fontSize={"25px"}><FiHeart/></Box>
+                  <Box fontSize={"25px"}>
+                    <FiHeart />
+                  </Box>
                 </Flex>
-                <Image src={el.img}/>
+                <Image src={el.image[0].img} />
                 <hr />
-                <Flex justifyContent={"space-between"} alignItems={"center"} marginTop={"5px"}>
-                  <Flex alignItems={"center"} padding="3px 7px" backgroundColor={"#00B5B7"} color="white">
-                    <p>{el.ratings}</p>
-                    <p><CiStar/></p>
+                <Flex
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                  marginTop={"5px"}
+                >
+                  <Flex
+                    alignItems={"center"}
+                    padding="3px 7px"
+                    backgroundColor={"#00B5B7"}
+                    color="white"
+                  >
+                    <p>{el.rating}</p>
+                    <p>
+                      <CiStar />
+                    </p>
                   </Flex>
-                  <p>{el.review} review</p>
+                  <p style={{ fontWeight: "bold" }}>{el.brand}</p>
                 </Flex>
                 <br />
-                <Box noOfLines={2} style={{fontWeight:"bold"}}>{el.title}</Box>
+                <Box noOfLines={2} style={{ fontWeight: "bold" }}>
+                  {el.title}
+                </Box>
                 <br />
                 <Flex justifyContent={"space-between"} alignItems={"center"}>
-                  <p style={{fontWeight:"bold"}}>₹{el.price}</p>
-                  <p className="maxprice">₹{el.maxprice}</p>
-                  <p>{Math.floor((el.price/el.maxprice)*100)}% off</p>
+                  <p style={{ fontWeight: "bold" }}>₹{el.price}</p>
+                  <p className="maxprice">
+                    ₹{(el.price * (100 / el.discount)).toFixed()}
+                  </p>
+                  <p>{el.discount}% off</p>
                 </Flex>
                 <br />
                 <Box className="Add-to-cart-button">
-                  <p><FiShoppingCart/></p>
+                  <p>
+                    <FiShoppingCart />
+                  </p>
                   <p>Add to Cart</p>
                 </Box>
               </Box>
             ))}
           </Box>
-          
+          <br />
+          <br />
+          <Flex justifyContent={"center"} align={"center"} gap={"5px"}>
+            <Button border={"1px solid #00B5B7"} onClick={()=>setPage(1)}>1</Button>
+            <Button border={"1px solid #00B5B7"} onClick={()=>setPage(2)}>2</Button>
+            <Button border={"1px solid #00B5B7"} onClick={()=>setPage(3)}>3</Button>
+            <Button border={"1px solid #00B5B7"} onClick={()=>setPage(4)}>4</Button>
+            <Button border={"1px solid #00B5B7"} onClick={()=>setPage(5)}>5</Button>
+            <Button border={"1px solid #00B5B7"} onClick={()=>setPage(6)}>6</Button>
+            <Button border={"1px solid #00B5B7"} onClick={()=>setPage(7)}>7</Button>
+            <Button border={"1px solid #00B5B7"} onClick={()=>setPage(8)}>8</Button>
+            <Button border={"1px solid #00B5B7"} onClick={()=>setPage(9)}>9</Button>
+            <Button border={"1px solid #00B5B7"} onClick={()=>setPage(10)}>10</Button>
+          </Flex>
+          <br />
         </Box>
-        
-
       </Box>
     </div>
   );

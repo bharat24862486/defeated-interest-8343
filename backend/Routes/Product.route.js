@@ -2,15 +2,22 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const { ProductModel } = require("../Models/Prodcut.model");
 const { authorization } = require("../Middleware/Authorization");
+const { authentication } = require("../Middleware/Authentication");
 const productRouter = express.Router();
 
 // PRODUCT GET REQUEST
 productRouter.get("/", async (req, res) => {
+
   const token = req.headers.authorization;
   const decoded = jwt.verify(token, process.env.SECRET_KEY);
   // console.log(decoded);
   try {
     const { title, brand, category, page } = req.query;
+  const { title, brand, category, page, rating, price, sort, discount } =
+    req.query;
+
+  let pagination = (page - 1) * 6;
+  try {
     const query = {};
     if (title) {
       query.title = { $regex: title, $options: "i" };
@@ -18,22 +25,55 @@ productRouter.get("/", async (req, res) => {
     if (brand) {
       query.brand = brand;
     }
+
     if (page) {
       pagination = (page - 1) * 2;
     } else {
       pagination = 0;
     }
+
     if (category) {
       query.category = category;
     }
-    const product = await ProductModel.find(query).skip(pagination).limit(6);
-    res
-      .status(200)
-      .send({ msg: "All Healthcare Products!!", product, ok: true });
+    if (rating) {
+      query.rating = { $gte: rating };
+    }
+    if (discount) {
+      query.discount = { $gte: discount };
+    }
+    if (price) {
+      query.price = { $gte: price };
+    }
+    if (sort) {
+      const product = await ProductModel.find(query)
+        .skip(pagination)
+        .limit(6)
+        .sort({ price: sort });
+      res
+        .status(200)
+        .send({ msg: "All Healthcare Products!!", product, ok: true });
+    } else {
+      const product = await ProductModel.find(query).skip(pagination).limit(6);
+      res
+        .status(200)
+        .send({ msg: "All Healthcare Products!!", product, ok: true });
+    }
   } catch (error) {
     res.status(400).send({ error: error.message });
   }
 });
+
+productRouter.get("/single_product/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await ProductModel.findById({ _id: id });
+    res.status(200).send({ msg: "Single Product!!", product, ok: true });
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
+productRouter.use(authentication);
 
 // AUTHORIZATION MIDDLEWARE
 productRouter.use(authorization);
