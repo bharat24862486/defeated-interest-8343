@@ -7,12 +7,19 @@ const { authentication } = require("./Middleware/Authentication");
 const { cartRouter } = require("./Routes/Cart.route");
 const { orderRouter } = require("./Routes/Order.route");
 const app = express();
+const cors = require("cors");
+app.use(cors());
 app.use(express.json());
 app.use(cors());
 app.use("/user", userRouter);
+
+app.use(authentication);
+app.use("/product", productRouter);
+
 // app.use(authentication);
 app.use("/product", productRouter);
 app.use(authentication);
+
 app.use("/cart", cartRouter);
 app.use("/order", orderRouter);
 

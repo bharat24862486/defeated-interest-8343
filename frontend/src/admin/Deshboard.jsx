@@ -9,13 +9,27 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
+import { useDispatch, useSelector } from "react-redux";
 import { BsPerson } from "react-icons/bs";
 import { BiDollar } from "react-icons/bi";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FiShoppingBag } from "react-icons/fi";
 import Sidebar from "./Sidebar";
+import { getProductsCount } from "../redux/admin/admin.action";
+import axios from "axios";
 
 function StatsCard(props) {
+  let [count, setCount] = useState(0);
+
+  axios
+    .get("https://unusual-gold-button.cyclic.app/product/")
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   const { title, stat, icon } = props;
   return (
     <Stat
@@ -48,6 +62,12 @@ function StatsCard(props) {
 }
 
 export const Deshboard = () => {
+  const dispatch = useDispatch();
+  const { orders } = useSelector((store) => store.AdminReducer);
+  useEffect(() => {
+    dispatch(getProductsCount);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Flex w={"100%"}>
       <Sidebar />

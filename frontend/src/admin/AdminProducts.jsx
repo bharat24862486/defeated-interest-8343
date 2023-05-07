@@ -30,28 +30,38 @@ import AddProduct from "./AddProduct";
 import { TbEdit } from "react-icons/tb";
 import Sidebar from "./Sidebar";
 import { toast } from "react-hot-toast";
-// import {
-//   DeleteAdminProducts,
-//   editAdminProducts,
-//   getAdminProducts,
-// } from "../../Redux/Admin/admin.action";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  DeleteAdminProducts,
+  editAdminProducts,
+  getAdminProducts,
+} from "../redux/admin/admin.action";
+import { useLocation } from "react-router-dom";
 
 const AdminProducts = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
+  const { adminProducts, loading } = useSelector((store) => store.AdminReducer);
+  const location = useLocation();
+  let [updateId, setUpdateid] = useState("");
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const [edit, setEdit] = useState({});
+  const [change, setChange] = useState(false);
   let i = 0;
 
-  // const { adminProducts } = useSelector((store) => store.AdminReducer);
-
   useEffect(() => {
-    // dispatch(getAdminProducts);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(getAdminProducts);
+    console.log(adminProducts);
+  }, [location.search, updateId]);
+
+  const handleGetId = (id) => {
+    setUpdateid(id);
+  };
 
   const handleDelete = (id) => {
-    // dispatch(DeleteAdminProducts(id));
+    dispatch(DeleteAdminProducts(id));
+    dispatch(getAdminProducts);
     toast.success("Product deleted successfully !", {
       style: {
         borderRadius: "50px",
@@ -69,8 +79,11 @@ const AdminProducts = () => {
     setEdit({ ...edit, [name]: value });
   };
 
-  const HandleSaveEdit = (id) => {
-    // dispatch(editAdminProducts(id, edit));
+  const HandleSaveEdit = () => {
+    dispatch(editAdminProducts(updateId, edit));
+    dispatch(getAdminProducts);
+    setChange(!change);
+    // console.log(updateId);
     toast.success("Product updated successfully !", {
       style: {
         borderRadius: "50px",
@@ -80,7 +93,9 @@ const AdminProducts = () => {
         fontWeight: "600",
       },
     });
+    onClose();
   };
+  // console.log(change);
 
   return (
     <>
@@ -116,99 +131,122 @@ const AdminProducts = () => {
               </Thead>
               <Tbody>
                 {/* Map Products */}
-                <Tr key={i + 1}>
-                  <Td>{i + 1}.</Td>
-                  <Td>
-                    <Image w="60px" src="" />
-                  </Td>
-                  <Td>category</Td>
-                  <Td>title</Td>
-                  <Td>Price</Td>
-                  {/* <Td>{e.price.substring(0, 28).concat("...")}</Td> */}
-                  <Td cursor={"pointer"}>
-                    <>
-                      <Text fontSize={"lg"} onClick={onOpen} color="">
-                        <TbEdit />
-                      </Text>
-                      <Modal
-                        initialFocusRef={initialRef}
-                        finalFocusRef={finalRef}
-                        isOpen={isOpen}
-                        onClose={onClose}
+                {loading ? "Please wait...." : ""}
+                {adminProducts.product &&
+                  adminProducts.product.map((ele, i) => (
+                    <Tr key={i + 1}>
+                      <Td>{i + 1}.</Td>
+                      <Td>
+                        <Image w="60px" src={ele.image[0].img} />
+                      </Td>
+                      <Td>{ele.category}</Td>
+                      <Td>{ele.title}</Td>
+                      <Td>
+                        {typeof ele.price === "string"
+                          ? "$" + ele.price.substring(0, 4)
+                          : ele.price}
+                      </Td>
+                      <Td cursor={"pointer"}>
+                        <>
+                          {/*  */}
+                          <Text
+                            fontSize={"lg"}
+                            onClick={() => {
+                              onOpen();
+                              handleGetId(ele._id);
+                            }}
+                            color=""
+                          >
+                            <TbEdit />
+                          </Text>
+                          <Modal
+                            initialFocusRef={initialRef}
+                            finalFocusRef={finalRef}
+                            isOpen={isOpen}
+                            onClose={onClose}
+                          >
+                            <ModalOverlay />
+                            {/*  */}
+                            <ModalContent>
+                              <ModalHeader color="white">
+                                Edit Product details
+                              </ModalHeader>
+                              <ModalCloseButton />
+                              <ModalBody pb={6}>
+                                <FormControl w="400px" m="auto">
+                                  <FormLabel>Title</FormLabel>
+                                  <Input
+                                    placeholder="Add Title"
+                                    onChange={handleEdit}
+                                    name="title"
+                                  />
+                                  <FormLabel mt="10px">Category</FormLabel>
+                                  <Input
+                                    placeholder="Add Category"
+                                    onChange={handleEdit}
+                                    name="category"
+                                  />
+                                  <FormLabel mt="10px">Image</FormLabel>
+                                  <Input
+                                    placeholder="Add image URL"
+                                    onChange={handleEdit}
+                                    name="image"
+                                  />
+                                  <FormLabel mt="10px">Price</FormLabel>
+                                  <Input
+                                    type="number"
+                                    placeholder="Add the price"
+                                    onChange={handleEdit}
+                                    name="price"
+                                  />
+                                  <FormLabel mt="10px">Brand</FormLabel>
+                                  <Input
+                                    type="text"
+                                    placeholder="Brand"
+                                    onChange={handleEdit}
+                                    name="brand"
+                                  />
+                                  <Box m="40px 0">
+                                    <Button
+                                      mr={3}
+                                      onClick={HandleSaveEdit}
+                                      _hover={{
+                                        background:
+                                          "linear-gradient(to right, #90aefe, #0e61f9)",
+                                        color: "white",
+                                      }}
+                                      background="linear-gradient(to right, #50aefe, #0c61f4)"
+                                      color="white"
+                                    >
+                                      Save
+                                    </Button>
+                                    <Button
+                                      onClick={onClose}
+                                      _hover={{
+                                        background:
+                                          "linear-gradient(to right, #90aefe, #0e61f9)",
+                                        color: "white",
+                                      }}
+                                      background="linear-gradient(to right, #50aefe, #0c61f4)"
+                                      color="white"
+                                    >
+                                      Cancel
+                                    </Button>
+                                  </Box>
+                                </FormControl>
+                              </ModalBody>
+                            </ModalContent>
+                          </Modal>
+                        </>
+                      </Td>
+                      <Td
+                        cursor={"pointer"}
+                        onClick={() => handleDelete(ele._id)}
                       >
-                        <ModalOverlay />
-                        <ModalContent>
-                          <ModalHeader color="white">
-                            Edit Product details
-                          </ModalHeader>
-                          <ModalCloseButton />
-                          <ModalBody pb={6}>
-                            <FormControl w="400px" m="auto">
-                              <FormLabel>Title</FormLabel>
-                              <Input
-                                placeholder="Add Title"
-                                onChange={handleEdit}
-                                name="title"
-                              />
-                              <FormLabel mt="10px">Category</FormLabel>
-                              <Input
-                                placeholder="Add Category"
-                                onChange={handleEdit}
-                                name="category"
-                              />
-                              <FormLabel mt="10px">Image</FormLabel>
-                              <Input
-                                placeholder="Add image URL"
-                                onChange={handleEdit}
-                                name="image"
-                              />
-                              <FormLabel mt="10px">Price</FormLabel>
-                              <Input
-                                type="number"
-                                placeholder="Add the price"
-                                onChange={handleEdit}
-                                name="price"
-                              />
-                              <Box m="40px 0">
-                                <Button
-                                  mr={3}
-                                  // onClick={() => HandleSaveEdit(e._id)}
-                                  _hover={{
-                                    background:
-                                      "linear-gradient(to right, #90aefe, #0e61f9)",
-                                    color: "white",
-                                  }}
-                                  background="linear-gradient(to right, #50aefe, #0c61f4)"
-                                  color="white"
-                                >
-                                  Save
-                                </Button>
-                                <Button
-                                  onClick={onClose}
-                                  _hover={{
-                                    background:
-                                      "linear-gradient(to right, #90aefe, #0e61f9)",
-                                    color: "white",
-                                  }}
-                                  background="linear-gradient(to right, #50aefe, #0c61f4)"
-                                  color="white"
-                                >
-                                  Cancel
-                                </Button>
-                              </Box>
-                            </FormControl>
-                          </ModalBody>
-                        </ModalContent>
-                      </Modal>
-                    </>
-                  </Td>
-                  <Td
-                    cursor={"pointer"}
-                    // onClick={() => handleDelete(e._id)}
-                  >
-                    <MdDeleteOutline />
-                  </Td>
-                </Tr>
+                        <MdDeleteOutline />
+                      </Td>
+                    </Tr>
+                  ))}
                 {/*  */}
               </Tbody>
             </Table>

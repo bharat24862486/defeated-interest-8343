@@ -27,17 +27,10 @@ import { CgProductHunt } from "react-icons/cg";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 
-const text = [
-  { name: "Home", icon: FiHome, path: "/admin/deshboard" },
-  { name: "Product Status", icon: CgProductHunt, path: "/admin/products" },
-  //   { name: "Add Product", icon: BsPlusCircleDotted, path: "/admin/add_product" },
-  { name: "Analytics", icon: FiTrendingUp, path: "/admin/analytics" },
-  { name: "Settings", icon: FiSettings, path: "/admin/setting" },
-  { name: "Logout", icon: FiLogOut },
-];
-
+// localStorage.removeItem("token");
 export default function SimpleSidebar({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
@@ -67,6 +60,12 @@ export default function SimpleSidebar({ children }) {
 }
 
 const SidebarContent = ({ onClose, ...rest }) => {
+  let token = localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
   return (
     <Box
       bg={useColorModeValue("white", "gray.900")}
@@ -79,16 +78,27 @@ const SidebarContent = ({ onClose, ...rest }) => {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
+          <img src="https://i.ibb.co/S3Q6Ckq/Healthcare.png" alt="" />
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {/*  */}
-      {text.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          <NavLink to={link.path}>{link.name}</NavLink>
-        </NavItem>
-      ))}
+      <NavItem icon={FiHome}>
+        <NavLink to="/admin/deshboard">Home</NavLink>
+      </NavItem>
+      <NavItem icon={CgProductHunt}>
+        <NavLink to="/admin/products">Product Status</NavLink>
+      </NavItem>
+      <NavItem icon={FiTrendingUp}>
+        <NavLink to="/admin/analytics">Analytics</NavLink>
+      </NavItem>
+      <NavItem icon={FiSettings}>
+        <NavLink to="/admin/setting">Settings</NavLink>
+      </NavItem>
+      <NavItem icon={FiLogOut}>
+        <NavLink onClick={handleLogout}>Logout</NavLink>
+      </NavItem>
+      {/* ))} */}
     </Box>
   );
 };
