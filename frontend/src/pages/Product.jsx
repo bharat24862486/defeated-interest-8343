@@ -19,8 +19,35 @@ import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import {data} from "../component/data"
 import { FiHeart,FiShoppingCart } from "react-icons/fi";
 import {CiStar} from "react-icons/ci"
+import {useDispatch,useSelector} from "react-redux"
+import { getProductError, getProductRequest, getProductSuccess } from "../redux/ProductReducer/action";
+import axios from "axios"
+import { useEffect } from "react";
+
 
 function Product() {
+
+  const dispatch=useDispatch()
+  const {isLoading,isError,product}=useSelector((store)=>store.productReducer)
+  console.log(product)
+
+  const getProductData=()=>{
+    dispatch(getProductRequest())
+    axios.get("https://vast-puce-salamander-hat.cyclic.app/product")
+    .then((res)=>{
+      console.log(res)
+      dispatch(getProductSuccess(res))
+    })
+    .catch((err)=>{
+      dispatch(getProductError())
+    })
+  }
+
+  useEffect(()=>{
+    getProductData()
+  },[])
+
+  
 
   function Star(rating) {
     return (
