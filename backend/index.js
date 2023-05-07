@@ -2,17 +2,19 @@ const express = require("express");
 const { connection } = require("./Config/db");
 const { userRouter } = require("./Routes/User.route");
 const { productRouter } = require("./Routes/Product.route");
-const { authentication } = require('./Middleware/Authentication');
-const { cartRouter } = require('./Routes/Cart.route');
-const { orderRouter } = require('./Routes/Order.route');
+const { authentication } = require("./Middleware/Authentication");
+const { cartRouter } = require("./Routes/Cart.route");
+const { orderRouter } = require("./Routes/Order.route");
 const app = express();
+const cors = require("cors");
+app.use(cors());
 app.use(express.json());
 
 app.use("/user", userRouter);
-app.use(authentication)
+app.use(authentication);
 app.use("/product", productRouter);
-app.use('/cart',cartRouter);
-app.use('/order',orderRouter)
+app.use("/cart", cartRouter);
+app.use("/order", orderRouter);
 
 app.listen(process.env.PORT, async () => {
   try {

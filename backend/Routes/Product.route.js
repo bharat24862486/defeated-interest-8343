@@ -1,25 +1,29 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const { ProductModel } = require("../Models/Prodcut.model");
 const { authorization } = require("../Middleware/Authorization");
 const productRouter = express.Router();
 
 // PRODUCT GET REQUEST
 productRouter.get("/", async (req, res) => {
+  const token = req.headers.authorization;
+  const decoded = jwt.verify(token, process.env.SECRET_KEY);
+  // console.log(decoded);
   try {
-    const { title,brand,category,page,} = req.query;
+    const { title, brand, category, page } = req.query;
     const query = {};
-    if(title){
-      query.title = {$regex:title,$options:'i'};
+    if (title) {
+      query.title = { $regex: title, $options: "i" };
     }
-    if(brand){
+    if (brand) {
       query.brand = brand;
     }
-    if(page){
-      pagination = (page-1)*2;
-    }else{
+    if (page) {
+      pagination = (page - 1) * 2;
+    } else {
       pagination = 0;
     }
-    if(category){
+    if (category) {
       query.category = category;
     }
     const product = await ProductModel.find(query).skip(pagination).limit(6);
@@ -60,7 +64,7 @@ productRouter.patch("/update/:id", async (req, res) => {
 productRouter.delete("/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
-   await ProductModel.findByIdAndDelete({ _id: id });
+    await ProductModel.findByIdAndDelete({ _id: id });
     res.status(200).send({ msg: "Product Deleted!!", ok: true });
   } catch (error) {
     res.status(400).send({ error: error.message });

@@ -11,35 +11,51 @@ import {
   FormControl,
   FormLabel,
   Tooltip,
+  Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { BiBookAdd } from "react-icons/bi";
-// import { useDispatch } from "react-redux";
-// import { AddAdminProducts } from '../../Redux/Admin/admin.action';
-import { toast } from "react-hot-toast";
 
+import { TbEdit } from "react-icons/tb";
+
+import React, { useRef, useState } from "react";
+import { BiBookAdd } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
+import { AddAdminProducts } from "../redux/admin/admin.action";
+
+let data = {
+  title: "",
+  category: "",
+  brand: "",
+  price: "",
+  discount: "",
+  rating: "",
+  image: [],
+};
 function AddProduct() {
-  //   const dispatch = useDispatch();
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [price, setPrice] = useState("");
+  const dispatch = useDispatch();
+  const [addData, setAddData] = useState(data);
+  let [img, setImg] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { title, category, price, discount, rating, brand, image } = addData;
+
+  const handleImageAdd = (e) => {
+    setImg(e.target.value);
+  };
+  const handleChange = (e) => {
+    let val = e.target.value;
+    setAddData({ ...addData, [e.target.name]: val });
+  };
 
   const handleAddProd = () => {
+    addData.image.push(img);
+    // console.log(addData);
     if (
       title.length &&
       category.length &&
-      selectedImage !== null &&
-      price.length
+      price.length !== null &&
+      image.length !== 0
     ) {
-      // dispatch(AddAdminProducts({
-      //     title: title,
-      //     category: category,
-      //     image: selectedImage,
-      //     price: price
-      // }))
-      onclose();
+      dispatch(AddAdminProducts(addData));
       // console.log('added');
       toast.success("Product added successfully !", {
         style: {
@@ -51,6 +67,7 @@ function AddProduct() {
         },
       });
     }
+    // onclose();
   };
 
   return (
@@ -81,23 +98,46 @@ function AddProduct() {
                 <FormLabel>Title</FormLabel>
                 <Input
                   placeholder="Add Title"
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={handleChange}
+                  name="title"
+                  value={title}
                 />
                 <FormLabel mt="10px">Category</FormLabel>
                 <Input
                   placeholder="Add Category"
-                  onChange={(e) => setCategory(e.target.value)}
+                  onChange={handleChange}
+                  name="category"
+                  value={category}
                 />
                 <FormLabel mt="10px">Image</FormLabel>
                 <Input
                   placeholder="Add image URL"
-                  onChange={(e) => setSelectedImage(e.target.value)}
+                  onChange={handleImageAdd}
+                  name="image"
+                  value={img}
+                />
+                <FormLabel mt="10px">Brand</FormLabel>
+                <Input
+                  placeholder="Add Brand"
+                  onChange={handleChange}
+                  name="brand"
+                  value={brand}
                 />
                 <FormLabel mt="10px">Price</FormLabel>
                 <Input
                   type="number"
                   placeholder="Add the price"
-                  onChange={(e) => setPrice(e.target.value)}
+                  onChange={handleChange}
+                  name="price"
+                  value={price}
+                />
+                <FormLabel mt="10px">Discount</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Discount"
+                  onChange={handleChange}
+                  name="discount"
+                  value={discount}
                 />
                 <Box m="40px 0">
                   <Button
