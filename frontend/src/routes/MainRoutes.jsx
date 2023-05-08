@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import Product from "../pages/Product";
 import SingleProduct from "../pages/SingleProduct";
 import CartPage from "../pages/CartPage";
 import PaymentPage from "../pages/PaymentPage";
@@ -10,12 +9,15 @@ import AdminProducts from "../admin/AdminProducts";
 import PrivateRoute from "../admin/Components/PrivateRoute";
 import Settings from "../admin/Settings";
 import Home from "../pages/Home";
+import ProductData from "../pages/ProductData";
+import Product from "../pages/Product"
+
 
 function MainRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/product" element={<Product />} />
+      <Route path="/product" element={<Product/>} />
       <Route path="/product/:id" element={<SingleProduct />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/payment" element={<PaymentPage />} />
