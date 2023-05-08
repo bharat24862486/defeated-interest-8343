@@ -9,6 +9,7 @@ import {
   Input,
   Radio,
   Select,
+  SimpleGrid,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -40,7 +41,8 @@ import {
 } from "../redux/ProductReducer/action";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useToast } from '@chakra-ui/react'
 
 function Product() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -48,15 +50,12 @@ function Product() {
   const initialsort = searchParams.getAll("sort")[0];
   const [sort, setSort] = useState(initialsort || "");
 
-  
-
   const initialcategory = searchParams.getAll("category")[0];
   const [category, setCategory] = useState(initialcategory || "");
 
   const initialdiscount = searchParams.getAll("discount")[0];
   const [discount, setDiscount] = useState(initialdiscount || 0);
-  console.log("ini",initialdiscount)
-
+  
   const initialrating = searchParams.getAll("rating")[0];
   const [rating, setRating] = useState(initialrating || 0);
 
@@ -67,7 +66,8 @@ function Product() {
   const [page, setPage] = useState(initialpage || 1);
 
   const location = useLocation();
-  console.log(location);
+  const navigate=useNavigate()
+  const toast = useToast()
 
   useEffect(() => {
     let params = {};
@@ -120,7 +120,7 @@ function Product() {
   const getProductData = ({ sort, category, discount, rating, price, page }) => {
     dispatch(getProductRequest());
     axios
-      .get("https://frantic-lime-gabardine.cyclic.app/product", {
+      .get("https://unusual-gold-button.cyclic.app/product", {
         params: {
           sort: sort,
           category: category,
@@ -138,11 +138,13 @@ function Product() {
         dispatch(getProductError());
       });
   };
+  //https://unusual-gold-button.cyclic.app/
+  //https://frantic-lime-gabardine.cyclic.app/
 
   const getProductData1 = () => {
     dispatch(getProductRequest());
     axios
-      .get("https://frantic-lime-gabardine.cyclic.app/product")
+      .get("https://unusual-gold-button.cyclic.app/product")
       .then((res) => {
         //console.log("res",res)
         dispatch(getProductSuccess(res.data.product));
@@ -151,6 +153,40 @@ function Product() {
         dispatch(getProductError());
       });
   };
+
+  const handleNavigate=(id)=>{
+    navigate(`/product/${id}`)
+  }
+
+  const hanleCartData=(item)=>{
+    fetch("https://unusual-gold-button.cyclic.app/cart/add",{
+      method:"POST",
+      body:JSON.stringify(item),
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":`${localStorage.getItem("token")}`
+      }
+    })
+    .then((res)=>res.json())
+    .then((res)=>{
+      console.log(res)
+      toast({
+        description: "Product Added in Cart",
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+      toast({
+        description: "Something Went Wrong",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+    })
+  }
 
   function Star(rating) {
     return (
@@ -594,7 +630,7 @@ function Product() {
           </Box>
           <br />
           <Flex justifyContent={"space-between"} alignItems={"center"}>
-            <Heading size="md">Whey Protein Powder</Heading>
+            <Heading fontSize={["xl","2xl","3xl"]}>Whey Protein Powder</Heading>
             <Flex
               justifyContent={"space-between"}
               alignItems={"center"}
@@ -610,7 +646,7 @@ function Product() {
             <p style={{ fontSize: "17px" }}>4.4(18.3k Reviews)</p>
           </Flex>
           <br />
-          <Text fontSize="md" textAlign={"left"}>
+          <Text fontSize={["md","lg","xl"]} textAlign={"left"}>
             Whey protein provides all the necessary protein and nutrients, helps
             in improving great energy levels, and allows you to achieve your
             bodybuilding goals safely and effectively. It also benefits the
@@ -637,13 +673,13 @@ function Product() {
           <br />
           <Box className="productboxes">
             {product && product.map((el) => (
-              <Box key={el._id} className="productboxeschild">
+              <Box key={el._id} className="productboxeschild" >
                 <Flex>
                   <Box fontSize={"25px"}>
                     <FiHeart />
                   </Box>
                 </Flex>
-                <Image src={el.image[0].img} />
+                <Image onClick={()=>handleNavigate(el._id)} src={el.image[0].img} />
                 <hr />
                 <Flex
                   justifyContent={"space-between"}
@@ -676,7 +712,7 @@ function Product() {
                   <p>{el.discount}% off</p>
                 </Flex>
                 <br />
-                <Box className="Add-to-cart-button">
+                <Box className="Add-to-cart-button" onClick={()=>hanleCartData(el)}>
                   <p>
                     <FiShoppingCart />
                   </p>
@@ -687,7 +723,7 @@ function Product() {
           </Box>
           <br />
           <br />
-          <Flex justifyContent={"center"} align={"center"} gap={"5px"}>
+          <SimpleGrid columns={[6,6,10]} justifyContent={"center"} align={"center"} gap={"5px"}>
             <Button border={"1px solid #00B5B7"} onClick={()=>setPage(1)}>1</Button>
             <Button border={"1px solid #00B5B7"} onClick={()=>setPage(2)}>2</Button>
             <Button border={"1px solid #00B5B7"} onClick={()=>setPage(3)}>3</Button>
@@ -698,7 +734,7 @@ function Product() {
             <Button border={"1px solid #00B5B7"} onClick={()=>setPage(8)}>8</Button>
             <Button border={"1px solid #00B5B7"} onClick={()=>setPage(9)}>9</Button>
             <Button border={"1px solid #00B5B7"} onClick={()=>setPage(10)}>10</Button>
-          </Flex>
+          </SimpleGrid>
           <br />
         </Box>
       </Box>

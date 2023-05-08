@@ -20,14 +20,20 @@
 }
 .first-img-box-one{
     width:20%;
+    /* margin:auto; */
     display: grid;
-    align-items: center;
-    gap:20px;
+    justify-content: top;
+    align-items:center;
+    /* gap:20px; */
 }
 .first-img-box-two{
     width:76%;
+    /* margin:auto; */
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding:10px;
+    display: grid;
+    justify-content: top;
+    align-items:center;
 
 }
 
@@ -74,14 +80,96 @@
 
 /* media query small screen */
 @media all and (min-width:279px) and (max-width:480px){
-   
+    .big-box{
+        width: 100%;
+        margin:auto;
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        justify-content: center;
+        align-items: center;
+        padding:30px;
+        gap:20px;
+    
+    }
+    .first-img-box{
+        width:auto;
+        display: grid;
+        justify-content: center;
+        align-items: top;
+        gap:10px;
+    
+    }
+    .first-img-box-one{
+        width:auto;
+        /* margin:auto; */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* gap:20px; */
+    }
+    .first-img-box-two{
+        width:auto;
+        /* margin:auto; */
+        display: grid;
+        justify-content: top;
+        align-items:center;
+    
+    }
+    .second-title-box{
+        width:auto;
+        /* border:1px solid blue; */
+        font-size: 20px;
+        text-align: left;
+    
+    }
     
 
 }
 
 /* media query medium screen */
 @media all and (min-width:481px) and (max-width:906px){
+    .big-box{
+        width: 100%;
+        margin:auto;
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        justify-content: center;
+        align-items: center;
+        padding:30px;
+        gap:20px;
     
+    }
+    .first-img-box{
+        width:auto;
+        display: grid;
+        justify-content: center;
+        align-items: top;
+        gap:10px;
+    
+    }
+    .first-img-box-one{
+        width:auto;
+        /* margin:auto; */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* gap:20px; */
+    }
+    .first-img-box-two{
+        width:auto;
+        /* margin:auto; */
+        display: grid;
+        justify-content: top;
+        align-items:center;
+    
+    }
+    .second-title-box{
+        width:auto;
+        /* border:1px solid blue; */
+        font-size: 25px;
+        text-align: left;
+    
+    }
    
 
 }
