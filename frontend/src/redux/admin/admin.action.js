@@ -7,7 +7,7 @@ import { getData } from "./ls";
 export const getOrdersData = (dispatch) => {
   dispatch({ type: types.LOADING });
   axios
-    .get(`https://unusual-gold-button.cyclic.app/cartProducts/`, {
+    .get(`http://.localhost:0880/order/`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -18,10 +18,11 @@ export const getOrdersData = (dispatch) => {
     .catch(() => dispatch({ type: types.ERROR }));
 };
 
+//
 export const getProductsCount = (dispatch) => {
   dispatch({ type: types.LOADING });
   axios
-    .get(`https://unusual-gold-button.cyclic.app/product/`, {
+    .get(`http://localhost:0880/product/product_count/`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -77,7 +78,7 @@ export const AddAdminProducts = (details) => async (dispatch) => {
     })
     .then((res) => {
       dispatch({ type: types.ADDADMINPRODUCT, payload: res.data });
-      console.log(res.data);
+      // console.log(res.data);
     })
     .then(() => getAdminProducts(dispatch))
     .catch(() => dispatch({ type: types.ERROR }));

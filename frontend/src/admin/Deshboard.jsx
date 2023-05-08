@@ -16,19 +16,10 @@ import React, { useEffect, useState } from "react";
 import { FiShoppingBag } from "react-icons/fi";
 import Sidebar from "./Sidebar";
 import axios from "axios";
+import { getProductsCount } from "../redux/admin/admin.action";
+import Orders from "./Orders";
 
 function StatsCard(props) {
-  let [count, setCount] = useState(0);
-
-  axios
-    .get("https://unusual-gold-button.cyclic.app/product/")
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
   const { title, stat, icon } = props;
   return (
     <Stat
@@ -61,12 +52,42 @@ function StatsCard(props) {
 }
 
 export const Deshboard = () => {
-  const dispatch = useDispatch();
-  // const { orders } = useSelector((store) => store.AdminReducer);
-  // useEffect(() => {
-  // dispatch(getProductsCount);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  let [count, setCount] = useState(0);
+  const [proCount, setProCount] = useState(0);
+  const [orders, setOrder] = useState([]);
+
+  const CountFun = () => {
+    axios
+      .get(`http://localhost:0880/product/product_count/`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setProCount(res.data.product.length);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const OrderFun = () => {
+    axios
+      .get(`http://localhost:0880/order/`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setOrder(res.data.orderData);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    CountFun();
+    OrderFun();
+  }, []);
+
   return (
     <Flex w={"100%"}>
       <Sidebar />
@@ -82,7 +103,7 @@ export const Deshboard = () => {
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
           <StatsCard
             title={"Total Products"}
-            stat={"200"}
+            stat={proCount}
             icon={<FiShoppingBag size={"3em"} />}
           />
           <StatsCard
@@ -104,7 +125,7 @@ export const Deshboard = () => {
         >
           Recent Orders
         </chakra.h1>
-        {/* <Orders orders={orders} /> */}
+        <Orders orders={orders} />
       </Box>
     </Flex>
   );

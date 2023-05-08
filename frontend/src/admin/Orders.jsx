@@ -19,6 +19,7 @@ const Orders = ({ orders }) => {
   const dispatch = useDispatch();
   const deleteOrder = (id) => {
     dispatch(DeleteOrdersData(id));
+
     toast.success("Product deleted successfully !", {
       style: {
         borderRadius: "50px",
@@ -51,7 +52,7 @@ const Orders = ({ orders }) => {
               <Tr key={i + 1}>
                 <Td>{i + 1}.</Td>
                 <Td>
-                  <Image w="60px" src={e.image} />
+                  <Image w="60px" src={e.image[0]} />
                 </Td>
                 <Td>{e.category}</Td>
                 <Td>{e.title}</Td>
