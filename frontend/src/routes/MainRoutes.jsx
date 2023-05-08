@@ -9,10 +9,12 @@ import Admin_login from "../admin/admin_login";
 import AdminProducts from "../admin/AdminProducts";
 import PrivateRoute from "../admin/Components/PrivateRoute";
 import Settings from "../admin/Settings";
+import Home from "../pages/Home";
 
 function MainRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
       <Route path="/product" element={<Product />} />
       <Route path="/product/:id" element={<SingleProduct />} />
       <Route path="/cart" element={<CartPage />} />
