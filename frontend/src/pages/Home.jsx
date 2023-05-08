@@ -28,30 +28,31 @@ import Nev2 from '../component/Navbar/Nev2'
 
 const Home = () => {
   const [check, setCheck] = useState(false)
-function makeTrue(){
-  console.log("true")
-  setCheck(true)
-}
-function makeFalse(){
-  console.log("false")
-  setCheck(false)
-}
+  function makeTrue() {
+    console.log("true")
+    setCheck(true)
+  }
+  function makeFalse() {
+    console.log("false")
+    setCheck(false)
+  }
 
   return (
-    <Box>
-      {check ? <MobNav3 makeFalse={makeFalse}/> :
-        <Box><Nav makeTrue={makeTrue} />
+    <Box>{check ? <MobNav3 makeFalse={makeFalse} /> :
+      <Box><Nav makeTrue={makeTrue} />
         <Nev2 />
-          <Banner />
-          <Homefetch url={`https://unusual-gold-button.cyclic.app/product?category=Ayurveda`} title={"Blockbuster Deals"} />
-          <HomeProductCard2 img1={b1} img2={b2} img3={b3} img4={b4} img5={b5} m={"2% 4%"} />
-          <Homefetch url={`https://unusual-gold-button.cyclic.app/product?category=Vitamin`} title={"Buy 1 Get 1 Free"} />
-          <HomeProductCard3 img1={b6} img2={b7} img3={b8} img4={b9} />
-          <Homefetch url={`https://unusual-gold-button.cyclic.app/product?category=Fitness`} title={"Extra 5% Off + 5% HK Cash"} />
-          <HomeProductCard4 />
-          <HomeProductCard5 />
-          <HomeProductCard6 />
-          <Footer /></Box>}
+
+        <Banner />
+        <Homefetch url={`https://unusual-gold-button.cyclic.app/product?category=Ayurveda`} title={"Blockbuster Deals"} />
+        <HomeProductCard2 img1={b1} img2={b2} img3={b3} img4={b4} img5={b5} m={"2% 4%"} />
+        <Homefetch url={`https://unusual-gold-button.cyclic.app/product?category=Vitamin`} title={"Buy 1 Get 1 Free"} />
+        <HomeProductCard3 img1={b6} img2={b7} img3={b8} img4={b9} />
+        <Homefetch url={`https://unusual-gold-button.cyclic.app/product?category=Fitness`} title={"Extra 5% Off + 5% HK Cash"} />
+        <HomeProductCard4 />
+        <HomeProductCard5 />
+        <HomeProductCard6 />
+        <Footer />
+      </Box>}
 
 
     </Box>

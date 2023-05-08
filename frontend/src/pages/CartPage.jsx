@@ -2,6 +2,7 @@ import { Box, Button, Center, Divider, Grid, Heading, Image, Input, Text, VStack
 import { TbDiscount2 } from 'react-icons/tb';
 import { AiOutlineRight } from 'react-icons/ai';
 import SingleCartItem from './SingleCartItem';
+import { useState } from 'react';
 
 const CartPage=()=>{
 
@@ -26,7 +27,19 @@ const CartPage=()=>{
         }
     ]
 
+    const [check, setCheck] = useState(false)
+    function makeTrue(){
+      console.log("true")
+      setCheck(true)
+    }
+    function makeFalse(){
+      console.log("false")
+      setCheck(false)
+    }
+
 return (<>
+
+
 
 { 
 cartItems.length==0?<Center mt={'3%'}>
