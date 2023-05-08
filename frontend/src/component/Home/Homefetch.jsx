@@ -11,6 +11,7 @@ const Homefetch = ({title,url}) => {
 
     let [data3, setData3] = useState([])
     let [data4, setData4] = useState([])
+    
     let data2 = []
     useEffect(() => {
         console.log(url)
