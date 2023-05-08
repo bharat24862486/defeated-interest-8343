@@ -8,6 +8,7 @@ import {GiTakeMyMoney} from "react-icons/gi"
 import {BiTransferAlt} from "react-icons/bi"
 import { useParams } from "react-router-dom";
 import { useToast } from '@chakra-ui/react'
+import Footer from "../component/Footer/Footer";
 
 
 function SingleProduct() {
@@ -118,24 +119,24 @@ function SingleProduct() {
           </Box>
         </Box>
         <Box className="second-title-box">
-          <Heading fontSize={["xl","2xl","3xl"]} fontWeight={"semibold"}>{sdata && sdata?.title}</Heading>
+          <Heading fontSize={["lg","xl","2xl"]} fontWeight={"semibold"}>{sdata && sdata?.title}</Heading>
           <br />
-          <Heading fontSize={["xl","2xl","3xl"]} fontWeight={"semibold"}>
+          <Heading fontSize={["lg","lg","xl"]} fontWeight={"semibold"}>
             Category: <span style={{ color: "#00B5B7" }}>{sdata?.category}</span>
           </Heading>
           <br />
-          <Heading fontSize={["xl","2xl","3xl"]} fontWeight={"semibold"}>
+          <Heading fontSize={["lg","lg","xl"]} fontWeight={"semibold"}>
             Brand: <span style={{ color: "#00B5B7" }}>{sdata?.brand}</span>
           </Heading>
           <br />
-          <Heading fontSize={["xl","2xl","3xl"]} fontWeight={"semibold"}>
+          <Heading fontSize={["lg","lg","xl"]} fontWeight={"semibold"}>
             MRP:
             <span style={{ textDecoration: "line-through" }}>
             ₹{(quantity*(sdata?.price * (100 / sdata?.discount)).toFixed())}
             </span>
           </Heading>
           <Flex gap={"20px"}>
-            <Heading fontSize={["xl","2xl","3xl"]} fontWeight={"semibold"}>
+            <Heading fontSize={["lg","lg","xl"]} fontWeight={"semibold"}>
               Price:<span>₹{(quantity*sdata?.price)}</span>
             </Heading>
             <p style={{ color: "#00B5B7" }}>{sdata?.discount}% off</p>
@@ -150,14 +151,14 @@ function SingleProduct() {
               borderRadius={"6px"}
             >
               <Button
-                fontSize={["xl","2xl","3xl"]}
+                fontSize={["lg","lg","xl"]}
                 onClick={() => setQuantity(quantity - 1)}
                 isDisabled={quantity <= 1}
               >
                 -
               </Button>
-              <Button fontSize={["xl","2xl","3xl"]} color={"#00B5B7"}>{quantity}</Button>
-              <Button fontSize={["xl","2xl","3xl"]} onClick={() => setQuantity(quantity + 1)}>+</Button>
+              <Button fontSize={["lg","lg","xl"]} color={"#00B5B7"}>{quantity}</Button>
+              <Button fontSize={["lg","lg","xl"]} onClick={() => setQuantity(quantity + 1)}>+</Button>
             </Flex>
             <Box className="Add-to-cart-button-box" onClick={()=>hanleCartData1(sdata)}>
               <p>
@@ -171,11 +172,11 @@ function SingleProduct() {
           </SimpleGrid>
           <br />
           <Box className="delivery-services">
-            <Heading fontSize={["xl","2xl","3xl"]}>Delivery & Services</Heading>
+            <Heading fontSize={["lg","xl","2xl"]}>Delivery & Services</Heading>
             <br />
             <Flex>
               <Input border={"1px solid #00B5B7"} width={"50%"}/>
-              <Button fontSize={["xl","2xl","3xl"]} border={"1px solid #00B5B7"} color={"#00B5B7"}>Check</Button>
+              <Button fontSize={["lg","lg","xl"]} border={"1px solid #00B5B7"} color={"#00B5B7"}>Check</Button>
             </Flex>
             <br />
             <Flex alignItems={"center"} gap="10px"> 
@@ -197,13 +198,13 @@ function SingleProduct() {
       </Box>
       <br />
       <br />
-      <Box width={"77%"} margin={"auto"}>
+      {/* <Box width={"77%"} margin={"auto"}>
         <Heading fontSize={["xl","2xl","3xl"]}>How to Consume</Heading>
         <br />
         <Image src="http://hkprod.s3.amazonaws.com/20000/normal_1999930_o.jpg"/>
-      </Box>
+      </Box> */}
       <br />
-      
+      <Footer/>
     </div>
   );
 }

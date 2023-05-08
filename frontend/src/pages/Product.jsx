@@ -43,6 +43,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useToast } from '@chakra-ui/react'
+import Footer from "../component/Footer/Footer";
 
 function Product() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -113,7 +114,7 @@ function Product() {
 
   const dispatch = useDispatch();
   const { isLoading, isError, product } = useSelector(
-    (store) => store.productReducer
+    (store) => store.ProductReducer
   );
   console.log(product);
 
@@ -213,6 +214,7 @@ function Product() {
     );
   }
   return (
+    <div>
     <div className="productspage">
       <Box>
         <Breadcrumb
@@ -738,6 +740,8 @@ function Product() {
           <br />
         </Box>
       </Box>
+    </div>
+      <Footer/>
     </div>
   );
 }
