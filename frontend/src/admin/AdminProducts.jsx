@@ -24,36 +24,38 @@ import {
   Text,
   Flex,
 } from "@chakra-ui/react";
+import {
+  DeleteAdminProducts,
+  editAdminProducts,
+  getAdminProducts,
+} from "../redux/admin/admin.action";
 import { MdDeleteOutline } from "react-icons/md";
 import Search from "./Search";
 import AddProduct from "./AddProduct";
 import { TbEdit } from "react-icons/tb";
 import Sidebar from "./Sidebar";
 import { toast } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  DeleteAdminProducts,
-  editAdminProducts,
-  getAdminProducts,
-} from "../redux/admin/admin.action";
+
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const AdminProducts = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
-  const { adminProducts, loading } = useSelector((store) => store.AdminReducer);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   let [updateId, setUpdateid] = useState("");
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const [edit, setEdit] = useState({});
   const [change, setChange] = useState(false);
+  const { adminProducts, loading } = useSelector((store) => store.AdminReducer);
+  // console.log(adminProducts);
   let i = 0;
 
   useEffect(() => {
     dispatch(getAdminProducts);
-    console.log(adminProducts);
-  }, [location.search, updateId]);
+    // console.log(adminProducts);
+  }, [location.search, updateId, change]);
 
   const handleGetId = (id) => {
     setUpdateid(id);

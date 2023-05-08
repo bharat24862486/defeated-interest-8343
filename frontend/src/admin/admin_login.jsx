@@ -17,8 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import axios from "axios";
-import { Navigate, useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -27,14 +25,14 @@ let obj = {
   email: "",
   password: "",
 };
+
 const Admin_login = () => {
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
   const [data, setData] = useState(obj);
   const { email, password } = data;
-  let location = useLocation();
   let token = localStorage.getItem("token") || "";
+  let [load, setLoad] = useState(false);
 
   const handleChange = (e) => {
     let val = e.target.value;
@@ -43,6 +41,7 @@ const Admin_login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoad(true);
     axios
       .post("https://quaint-frog-bedclothes.cyclic.app/user/login", data)
       .then((res) => {
@@ -52,7 +51,9 @@ const Admin_login = () => {
       })
       .catch((err) => {
         console.log(err);
+        setLoad(false);
       });
+    setLoad(false);
   };
 
   return (
@@ -118,6 +119,7 @@ const Admin_login = () => {
                 <FormHelperText textAlign="right">
                   <Link>forgot password?</Link>
                 </FormHelperText>
+                {/* {load ? "Please Wait...." : ""} */}
               </FormControl>
               <Button
                 borderRadius={0}
@@ -127,7 +129,7 @@ const Admin_login = () => {
                 width="full"
                 onClick={handleSubmit}
               >
-                Login
+                {load ? "Please Wait...." : " Login"}
               </Button>
             </Stack>
           </form>

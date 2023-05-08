@@ -15,7 +15,6 @@ import { BiDollar } from "react-icons/bi";
 import React, { useEffect, useState } from "react";
 import { FiShoppingBag } from "react-icons/fi";
 import Sidebar from "./Sidebar";
-import { getProductsCount } from "../redux/admin/admin.action";
 import axios from "axios";
 
 function StatsCard(props) {
@@ -63,11 +62,11 @@ function StatsCard(props) {
 
 export const Deshboard = () => {
   const dispatch = useDispatch();
-  const { orders } = useSelector((store) => store.AdminReducer);
-  useEffect(() => {
-    dispatch(getProductsCount);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // const { orders } = useSelector((store) => store.AdminReducer);
+  // useEffect(() => {
+  // dispatch(getProductsCount);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   return (
     <Flex w={"100%"}>
       <Sidebar />
