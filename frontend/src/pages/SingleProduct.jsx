@@ -9,12 +9,25 @@ import {BiTransferAlt} from "react-icons/bi"
 import { useParams } from "react-router-dom";
 import { useToast } from '@chakra-ui/react'
 import Footer from "../component/Footer/Footer";
+import Nev2 from "../component/Navbar/Nev2";
+import Nav from "../component/Navbar/Nav";
+import MobNav3 from "../component/Navbar/MobNav3";
 
 
 function SingleProduct() {
   const [sdata, setSdata] = useState({});
   const [imagedata, setImageData] = useState(sdata?.image && sdata?.image[0].img)
   const [quantity, setQuantity] = useState(1);
+
+  const [check, setCheck] = useState(false)
+  function makeTrue(){
+    console.log("true")
+    setCheck(true)
+  }
+  function makeFalse(){
+    console.log("false")
+    setCheck(false)
+  }
 
   const {id}=useParams()
   console.log("id",id)
@@ -82,7 +95,9 @@ function SingleProduct() {
   console.log("data",sdata)
   return (
     <div>
-      <Box className="big-box">
+      {check ? <MobNav3 makeFalse={makeFalse}/> :
+        <Box><Nav makeTrue={makeTrue} />
+        <Nev2 /> : <Box className="big-box">
         <Box className="first-img-box">
           <Box className="first-img-box-one">
             <Box
@@ -205,6 +220,8 @@ function SingleProduct() {
       </Box> */}
       <br />
       <Footer/>
+      </Box>}
+      
     </div>
   );
 }

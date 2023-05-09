@@ -6,6 +6,7 @@ import { RiCoupon2Fill, RiCouponFill } from 'react-icons/ri';
 import { MdLocationPin } from 'react-icons/md';
 import State1 from './State1';
 import Nev2Hover from './Nev2Hover';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -33,6 +34,7 @@ const Nev2 = () => {
       }, [windowDimension])
     
       console.log(windowDimension.winWidth);
+      const navigate = useNavigate()
     
     return (
         <Box>
@@ -43,12 +45,12 @@ const Nev2 = () => {
     <Grid templateColumns="repeat(5,1fr)">
     <PopoverTrigger><Box w={"20%"} gridColumnStart={1} gridColumnEnd={2} onClick={show} > <Button leftIcon={<AiOutlineAlignLeft color='teal' size="25" />} backgroundColor={"white"} border={"0.5px solid grey"} _hover={{ backgroundColor: "white" }} >Shop by category</Button></Box></PopoverTrigger>
         <Flex justifyContent={"space-around"} w={"100%"} gridColumnStart={2} gridColumnEnd={6}>
-            <Flex alignItems={"center"} justifyContent={"space-between"} ><BsFillTagsFill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Best Sellers</Text></Flex>
-            <Flex alignItems={"center"} justifyContent={"space-between"} ><BsFillAwardFill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Brands</Text></Flex>
-            <Flex alignItems={"center"} justifyContent={"space-between"} ><RiCoupon2Fill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Delas</Text></Flex>
-            <Flex alignItems={"center"} justifyContent={"space-between"} ><RiCouponFill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Blogs</Text></Flex>
-            <Flex alignItems={"center"} justifyContent={"space-between"} ><AiFillGift color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Gift Cards</Text></Flex>
-            <Flex alignItems={"center"} justifyContent={"space-between"} ><BsChatRightDotsFill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Customer Support</Text></Flex>
+            <Flex alignItems={"center"} justifyContent={"space-between"} onClick={()=>navigate("/product")} cursor={"pointer"}><BsFillTagsFill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Best Sellers</Text></Flex>
+            <Flex alignItems={"center"} justifyContent={"space-between"} onClick={()=>navigate("/product")}cursor={"pointer"}><BsFillAwardFill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Brands</Text></Flex>
+            <Flex alignItems={"center"} justifyContent={"space-between"} onClick={()=>navigate("/product")}cursor={"pointer"}><RiCoupon2Fill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Delas</Text></Flex>
+            <Flex alignItems={"center"} justifyContent={"space-between"} onClick={()=>navigate("/product")}cursor={"pointer"}><RiCouponFill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Blogs</Text></Flex>
+            <Flex alignItems={"center"} justifyContent={"space-between"} onClick={()=>navigate("/product")}cursor={"pointer"}><AiFillGift color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Gift Cards</Text></Flex>
+            <Flex alignItems={"center"} justifyContent={"space-between"} onClick={()=>navigate("/product")}cursor={"pointer"}><BsChatRightDotsFill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Customer Support</Text></Flex>
             {/* <Flex alignItems={"center"} justifyContent={"space-between"} ><MdLocationPin color='teal' size={"22"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Store Locator</Text></Flex> */}
 
         </Flex>

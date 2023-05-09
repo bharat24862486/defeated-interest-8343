@@ -2,31 +2,52 @@ import { Box, Button, Center, Divider, Grid, Heading, Image, Input, Text, VStack
 import { TbDiscount2 } from 'react-icons/tb';
 import { AiOutlineRight } from 'react-icons/ai';
 import SingleCartItem from './SingleCartItem';
+import { useState } from 'react';
 
 const CartPage=()=>{
+const [cartItem,setCartItem]=useState([]);
+const [totalP,setTotalP]=useState(0);
+const [disPrice,setDisPrice]=useState(0);
 
     let cartItems=[
         {
             img:"https://img8.hkrtcdn.com/14680/prd_1467907-HealthKart-Multivitamin-with-Multimineral-Amino-Acids-Taurine-Ginseng-Extract-90-tablets-Unflavoured_c_t.jpg",
             name:"HealthKart HK Vitals Multivitamin with Multimineral,Taurine & Ginseng Extract, 90 table",
             price:353,
+            discount:40,
             quantity:2
         },
         {
             img:"https://img8.hkrtcdn.com/14680/prd_1467907-HealthKart-Multivitamin-with-Multimineral-Amino-Acids-Taurine-Ginseng-Extract-90-tablets-Unflavoured_c_t.jpg",
             name:"HealthKart HK Vitals Multivitamin with Multimineral,Taurine & Ginseng Extract, 90 table",
             price:353,
-            quantity:2
+            discount:60,
+            quantity:3
         },
         {
             img:"https://img8.hkrtcdn.com/14680/prd_1467907-HealthKart-Multivitamin-with-Multimineral-Amino-Acids-Taurine-Ginseng-Extract-90-tablets-Unflavoured_c_t.jpg",
             name:"HealthKart HK Vitals Multivitamin with Multimineral,Taurine & Ginseng Extract, 90 table",
             price:353,
-            quantity:2
+            quantity:1,
+            discount:50
         }
     ]
+const handlePayment=()=>{
+
+}
+    const [check, setCheck] = useState(false)
+    function makeTrue(){
+      console.log("true")
+      setCheck(true)
+    }
+    function makeFalse(){
+      console.log("false")
+      setCheck(false)
+    }
 
 return (<>
+
+
 
 { 
 cartItems.length==0?<Center mt={'3%'}>
@@ -45,6 +66,9 @@ cartItems.length==0?<Center mt={'3%'}>
                 <Divider/>
                 {
           cartItems.map((ele)=>{
+                    // setTotalP((prev)=>prev+ele.price);
+                    // let disc=ele.price-(ele.price*(ele.discount)/100);
+                    // setDisPrice((prev)=>prev+disc);
               return <Box key={ele.id}>
                     <SingleCartItem {...ele}/>
                     <Divider/>
@@ -63,11 +87,11 @@ cartItems.length==0?<Center mt={'3%'}>
                         <Text fontSize={'30'} fontWeight={'bold'}>Order Summary</Text>
                         <Box mt='5%' display={'flex'} justifyContent={'space-between'}>
                             <Text>Total MRP</Text>
-                            <Text color='#00ACC1'>$2424</Text>
+                            <Text color='#00ACC1'>${totalP}</Text>
                         </Box>
                         <Box mt='5%' display={'flex'} justifyContent={'space-between'}>
                             <Text>Total Discount</Text>
-                            <Text>-$224</Text>
+                            <Text>-${totalP-disPrice}</Text>
                         </Box>
                         <Box mt='5%' display={'flex'} justifyContent={'space-between'}>
                             <Text>Shipping Charges</Text>
@@ -75,10 +99,10 @@ cartItems.length==0?<Center mt={'3%'}>
                         </Box>
                         <Box mt='5%' display={'flex'} justifyContent={'space-between'}>
                             <Text as='bold'>Payable Amount</Text>
-                            <Text as='bold'>$ 24241</Text>
+                            <Text as='bold'>$ {disPrice}</Text>
                         </Box>
                         <Divider mt='5%' fontWeight={'bold'}/>
-                        <Button w='100%' mt="8%"  pl={'20%'} pr={'20%'} as='bold' color='white' bg='#00ACC1' _hover={{bg:"#0097A7"}}>
+                        <Button w='100%' mt="8%" onClick={handlePayment} pl={'20%'} pr={'20%'} as='bold' color='white' bg='#00ACC1' _hover={{bg:"#0097A7"}}>
                             Procced to pay
                         </Button>
                         
