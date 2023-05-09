@@ -1,5 +1,6 @@
 import {
     Box,
+    Button,
     Flex,
     FormControl,
     FormLabel,
@@ -10,26 +11,49 @@ import {
     Text
   } from "@chakra-ui/react";
   import React, { useState } from "react";
-  import { Link } from "react-router-dom";
+  import { useDispatch } from "react-redux";
+  import { useToast } from '@chakra-ui/react'
+  import { Link, useNavigate } from "react-router-dom";
+
+import { forSignup, forToast } from "../redux/user/actions";
   const Signup = () => {
-  const intial={
-    firstname:"",
-    lastname:"",
-    email:"",
-    password:"",
+  const intial=  {
+    name: '',
+    email: "",
+    gender: "",
+    age: 0,
+    city: "",
+    role: "",
+    avatar : "",
+    password: "",
   }
   const [signupData,setSignupData]=useState(intial);
-  const handlechange=(e)=>{
+  const dispatch=useDispatch();
+  const toast=useToast()
+  const navigate=useNavigate()
 
-    const {name,value}=e.target;
-    console.log(name,value);
+
+  const handlechange=(e)=>{
+    let {name,value}=e.target;
+    if(name=="age"){
+          value=+value;
+        }
     setSignupData({...signupData,[name]:value});
   }
   const handlesubmit=(e)=>{
     e.preventDefault();
-        console.log(signupData);
+    console.log(signupData);
+
+    dispatch(forSignup(signupData)).then((res)=>{
+      if(res){
+        setSignupData(intial);
+        forToast(toast,"Account created","success")
+        navigate("/")
+      }else{
+        forToast(toast,"Somthing wrong!","error")
+      }
+ })  
   }
-  
   
     return (
       <Box>
@@ -47,14 +71,14 @@ import {
             borderRadius="4%"
             direction={['column','column','column','row']}
           >
-            <Box w={['100%','100%','100%','50%']} >
+            <Box w={['100%','100%','100%','50%']}  mb="5%">
               <Img src={'https://static1.hkrtcdn.com/hknext/static/media/login/slider/3.svg'} w={['100%','100%','100%']} borderRadius="10px" m='auto'/>
               <Text fontSize={'xl'} fontWeight={'bold'} mb={'5%'}>Please create a account to use our services!!</Text>
               <Text>Already have an account?</Text>
               <Heading size={'sm'} textDecoration='underline'><Link to='/login'>Login</Link></Heading>
             </Box>
             <Box bg={"white"} w={['90%',"90%","90%","50%"]} p="4%" gap={"2%"} borderRadius="3%" m='auto'>
-            <FormControl isRequired onSubmit={handlesubmit}>
+            <FormControl isRequired>
               <FormLabel ml='3%'>Name </FormLabel>
               <Input placeholder="Enter Name" mb="2%" name="name" value={signupData.name} onChange={handlechange} />
               <FormLabel ml='3%'>Email</FormLabel>
@@ -81,13 +105,12 @@ import {
             </Flex>
             <FormLabel ml='3%'>Avatar</FormLabel>
               <Input placeholder="Enter avatar URL" type={"text"} mb="4%" name="avatar" value={signupData.avatar} onChange={handlechange} />
-              <Input
-                type={"submit"}
-                bg="#03A9F4"
+              <Button
+                onClick={handlesubmit}
                 mt="3%"
                 fontWeight={"500"}
                 cursor="pointer"
-              />
+              >Sign Up</Button>
         </FormControl>
             </Box>
           </Flex>

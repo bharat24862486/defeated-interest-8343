@@ -11,6 +11,8 @@ import Settings from "../admin/Settings";
 import Home from "../pages/Home";
 import ProductData from "../pages/ProductData";
 import Product from "../pages/Product"
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
 
 
 function MainRoutes() {
@@ -63,6 +65,8 @@ function MainRoutes() {
           </PrivateRoute>
         }
       />
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/signup" element={<Signup/>}/>
     </Routes>
   );
 }
