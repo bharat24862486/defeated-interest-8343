@@ -178,7 +178,7 @@ function Product() {
       body: JSON.stringify(item),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `${localStorage.getItem("token")}`
+        "Authorization": `${JSON.parse(localStorage.getItem("token"))}`
       }
     })
       .then((res) => res.json())
