@@ -29,15 +29,38 @@ export const forLogin=(loginData)=>(dispatch)=>{
 }
 
 //get cart Items 
-
+export const getCartItems=(userID)=>(dispatch)=>{
+   return axios.get(`https://unusual-gold-button.cyclic.app/cart/${userID}`).then((res)=>{
+        return res.cartData;
+    }).catch((err)=>{
+        console.log(err);
+    })
+}
 
 //Delete cart items
-
+export const deleteCartItem=(id)=>(dispatch)=>{
+    const token=JSON.parse(localStorage.getItem("token"))
+    axios.delete(`https://unusual-gold-button.cyclic.app/cart/delete/${id}`,{
+        headers: {
+          Authorization: token,
+        }}).then((res)=>{
+        console.log(res);
+    }).catch((err)=>{
+        console.log(err);
+    })
+}
 
 //Clear all items from cart
 
 
-//
+//Add orders
+export const addOrder=(orderData)=>(dispatch)=>{
+    axios.post(`https://unusual-gold-button.cyclic.app/`,orderData).then((res)=>{
+
+    }).catch((err)=>{
+        console.log(err);
+    })
+}
 
 //Toast 
 export const forToast = (toast, title, status) => {

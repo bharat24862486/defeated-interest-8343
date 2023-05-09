@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Box,
     FormControl,
@@ -13,11 +13,25 @@ import {
   } from "@chakra-ui/react";
 //   import { TbDiscount2 } from 'react-icons/tb';
 // import { AiOutlineRight } from 'react-icons/ai';
-
+import Footer from '../component/Footer/Footer'
+import Nev2 from '../component/Navbar/Nev2'
+import MobNav3 from '../component/Navbar/MobNav3'
+import Nav from '../component/Navbar/Nav'
 
 const PaymentPage = () => {
-
+  const [check, setCheck] = useState(false)
+  function makeTrue() {
+    console.log("true")
+    setCheck(true)
+  }
+  function makeFalse() {
+    console.log("false")
+    setCheck(false)
+  }
   return (
+    <Box>{check ? <MobNav3 makeFalse={makeFalse} /> :
+      <Box><Nav makeTrue={makeTrue} />
+        <Nev2 />
     <Box
     w={'90%'}
     boxShadow="md"
@@ -95,6 +109,9 @@ const PaymentPage = () => {
                 </Grid>
             </Box>
   </Box>
+  <Footer />
+      </Box>}
+    </Box>
   )
 }
 
