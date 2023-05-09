@@ -50,6 +50,7 @@ userRouter.post("/login", async (req, res) => {
             token: token,
             ok: true,
             userName: user.name,
+            userId  : user.userId,
           });
         } else {
           res.status(200).send({ msg: "Wrong Credential!!" });
