@@ -1,18 +1,22 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const { ProductModel } = require("../Models/Prodcut.model");
 const { authorization } = require("../Middleware/Authorization");
 const { authentication } = require("../Middleware/Authentication");
 const productRouter = express.Router();
 
+// Count Products
+productRouter.get("/product_count", async (req, res) => {
+  try {
+    const product = await ProductModel.find();
+    res.status(200).send({ msg: "All Products!!", product, ok: true });
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+// Count Products
+
 // PRODUCT GET REQUEST
 productRouter.get("/", async (req, res) => {
-
-  const token = req.headers.authorization;
-  const decoded = jwt.verify(token, process.env.SECRET_KEY);
-  // console.log(decoded);
-  try {
-    const { title, brand, category, page } = req.query;
   const { title, brand, category, page, rating, price, sort, discount } =
     req.query;
 
@@ -25,13 +29,6 @@ productRouter.get("/", async (req, res) => {
     if (brand) {
       query.brand = brand;
     }
-
-    if (page) {
-      pagination = (page - 1) * 2;
-    } else {
-      pagination = 0;
-    }
-
     if (category) {
       query.category = category;
     }
