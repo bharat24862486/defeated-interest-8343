@@ -2,13 +2,22 @@ import { Box, Button, Center, Divider, Grid, Heading, Image, Input, Text, VStack
 import { TbDiscount2 } from 'react-icons/tb';
 import { AiOutlineRight } from 'react-icons/ai';
 import SingleCartItem from './SingleCartItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { deleteCartItem, getCartItems } from '../redux/user/actions';
+import { useDispatch } from 'react-redux';
+import Footer from '../component/Footer/Footer'
+import Nev2 from '../component/Navbar/Nev2'
+import MobNav3 from '../component/Navbar/MobNav3'
+import Nav from '../component/Navbar/Nav'
+import { useLocation } from 'react-router-dom';
 
 const CartPage=()=>{
+    const location = useLocation()
 const [cartItem,setCartItem]=useState([]);
 const [totalP,setTotalP]=useState(0);
 const [disPrice,setDisPrice]=useState(0);
-
+const [check, setCheck] = useState(false)
+const dispatch=useDispatch();
     let cartItems=[
         {
             img:"https://img8.hkrtcdn.com/14680/prd_1467907-HealthKart-Multivitamin-with-Multimineral-Amino-Acids-Taurine-Ginseng-Extract-90-tablets-Unflavoured_c_t.jpg",
@@ -21,21 +30,14 @@ const [disPrice,setDisPrice]=useState(0);
             img:"https://img8.hkrtcdn.com/14680/prd_1467907-HealthKart-Multivitamin-with-Multimineral-Amino-Acids-Taurine-Ginseng-Extract-90-tablets-Unflavoured_c_t.jpg",
             name:"HealthKart HK Vitals Multivitamin with Multimineral,Taurine & Ginseng Extract, 90 table",
             price:353,
-            discount:60,
-            quantity:3
-        },
-        {
-            img:"https://img8.hkrtcdn.com/14680/prd_1467907-HealthKart-Multivitamin-with-Multimineral-Amino-Acids-Taurine-Ginseng-Extract-90-tablets-Unflavoured_c_t.jpg",
-            name:"HealthKart HK Vitals Multivitamin with Multimineral,Taurine & Ginseng Extract, 90 table",
-            price:353,
             quantity:1,
             discount:50
         }
     ]
 const handlePayment=()=>{
+    // dispatch(deleteCartItem(userID));
 
 }
-    const [check, setCheck] = useState(false)
     function makeTrue(){
       console.log("true")
       setCheck(true)
@@ -45,10 +47,27 @@ const handlePayment=()=>{
       setCheck(false)
     }
 
+    const showTotal=()=>{
+        for(let i=0;i<cartItems.length;i++){
+                setTotalP((prev)=>prev+(cartItems[i].price)*cartItems[i].quantity);
+                let disc=(cartItems[i].price-(cartItems[i].price*(cartItems[i].discount)/100))*cartItems[i].quantity;
+                setDisPrice((prev)=>prev+disc);
+        }
+    }
+
+useEffect(()=>{
+    dispatch(getCartItems()).then((res)=>{
+        // const data=res.cartData;
+        // setCartItem(data);
+        
+    })
+    showTotal()
+},[location.search])
+
 return (<>
-
-
-
+    <Box>{check ? <MobNav3 makeFalse={makeFalse} /> :
+      <Box><Nav makeTrue={makeTrue} />
+        <Nev2 />
 { 
 cartItems.length==0?<Center mt={'3%'}>
     <VStack>
@@ -66,9 +85,7 @@ cartItems.length==0?<Center mt={'3%'}>
                 <Divider/>
                 {
           cartItems.map((ele)=>{
-                    // setTotalP((prev)=>prev+ele.price);
-                    // let disc=ele.price-(ele.price*(ele.discount)/100);
-                    // setDisPrice((prev)=>prev+disc);
+
               return <Box key={ele.id}>
                     <SingleCartItem {...ele}/>
                     <Divider/>
@@ -112,6 +129,9 @@ cartItems.length==0?<Center mt={'3%'}>
         </Grid>
         </>
 }
+<Footer />
+      </Box>}
+    </Box>
         </>
     )
     

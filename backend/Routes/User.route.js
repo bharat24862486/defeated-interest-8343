@@ -5,6 +5,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userRouter = express.Router();
 
+
+userRouter.get("/" ,async(req,res)=>{
+  let data = await UserModel.find()
+  res.send(data)
+})
+
 // Create User
 userRouter.post("/register", async (req, res) => {
   try {
@@ -50,7 +56,7 @@ userRouter.post("/login", async (req, res) => {
             token: token,
             ok: true,
             userName: user.name,
-            userId  : user.userId,
+            userId: user._id,
           });
         } else {
           res.status(200).send({ msg: "Wrong Credential!!" });
