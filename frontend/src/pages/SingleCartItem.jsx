@@ -1,18 +1,24 @@
 import { Box, Button, Center, Flex, IconButton, Image, Text, VStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DeleteIcon } from '@chakra-ui/icons'
+import { useDispatch } from 'react-redux';
+import { deleteCartItem } from '../redux/user/actions';
 
 const SingleCartItem=({img,name,quantity,price,discount,id})=>{
     const [Qcount,setQcount]=useState(quantity);
+    const dispatch=useDispatch();
 
-
-    const handleChange=()=>{
-
+    const handleChange=(num)=>{
+        setQcount((prev)=>{return prev+num});
     }
-    const handleDelete=()=>{
-
+    const handleDelete=(id)=>{
+        dispatch((deleteCartItem(id)));
     }
 
+
+    useEffect(()=>{
+
+    },[Qcount])
     return (
         <Flex m='15px' justifyContent={'space-between'}  gap={'10px'}>
             <Box w={'15%'} display={'flex'} gap={'15px'} justifyContent={'space-between'} >
