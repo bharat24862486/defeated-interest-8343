@@ -35,7 +35,19 @@ const [disPrice,setDisPrice]=useState(0);
 const handlePayment=()=>{
 
 }
+    const [check, setCheck] = useState(false)
+    function makeTrue(){
+      console.log("true")
+      setCheck(true)
+    }
+    function makeFalse(){
+      console.log("false")
+      setCheck(false)
+    }
+
 return (<>
+
+
 
 { 
 cartItems.length==0?<Center mt={'3%'}>
