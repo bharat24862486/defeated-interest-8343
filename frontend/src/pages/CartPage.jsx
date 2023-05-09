@@ -9,8 +9,10 @@ import Footer from '../component/Footer/Footer'
 import Nev2 from '../component/Navbar/Nev2'
 import MobNav3 from '../component/Navbar/MobNav3'
 import Nav from '../component/Navbar/Nav'
+import { useLocation } from 'react-router-dom';
 
 const CartPage=()=>{
+    const location = useLocation()
 const [cartItem,setCartItem]=useState([]);
 const [totalP,setTotalP]=useState(0);
 const [disPrice,setDisPrice]=useState(0);
@@ -55,10 +57,12 @@ const handlePayment=()=>{
 
 useEffect(()=>{
     dispatch(getCartItems()).then((res)=>{
-        const data=res.cartData;
-        setCartItem(data);
+        // const data=res.cartData;
+        // setCartItem(data);
+        
     })
-},[])
+    showTotal()
+},[location.search])
 
 return (<>
     <Box>{check ? <MobNav3 makeFalse={makeFalse} /> :

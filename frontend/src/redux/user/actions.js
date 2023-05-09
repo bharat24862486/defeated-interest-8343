@@ -4,7 +4,7 @@ import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, SIGNUP_FAILURE, SIGNUP_REQ
 //User Sign Up
 export const forSignup=(signupData)=>(dispatch)=>{
     dispatch({type:SIGNUP_REQUEST});
-    return axios.post(`https://unusual-gold-button.cyclic.app/user/register`,signupData).then((res)=>{
+    return axios.post(`https://poised-hem-frog.cyclic.app/user/register`,signupData).then((res)=>{
         console.log(res);
         dispatch({type:SIGNUP_SUCCESS});
         return true;
@@ -17,10 +17,11 @@ export const forSignup=(signupData)=>(dispatch)=>{
 //User Login 
 export const forLogin=(loginData)=>(dispatch)=>{
     dispatch({type:LOGIN_REQUEST});
-    return axios.post(`https://unusual-gold-button.cyclic.app/user/login`,loginData).then((res)=>{
+    return axios.post(`http://localhost:0880/user/login`,loginData).then((res)=>{
         console.log(res);
         dispatch({type:LOGIN_SUCCESS});
-        localStorage.setItem("token",JSON.stringify(res.token))
+        localStorage.setItem("token",JSON.stringify(res.data.token))
+        localStorage.setItem("userId",JSON.stringify(res.data.userId))
         return true;
     }).catch((err)=>{
         dispatch({type:LOGIN_FAILURE});
@@ -29,8 +30,16 @@ export const forLogin=(loginData)=>(dispatch)=>{
 }
 
 //get cart Items 
-export const getCartItems=(userID)=>(dispatch)=>{
-   return axios.get(`https://unusual-gold-button.cyclic.app/cart/${userID}`).then((res)=>{
+export const getCartItems=()=>(dispatch)=>{
+    let token=JSON.parse(localStorage.getItem("token"))
+    let id=JSON.parse(localStorage.getItem("userId"))
+
+    console.log(token,id)
+   return axios.get(`http://localhost:0880/cart/${id}`,{
+    headers: {
+      Authorization: token,
+    }}).then((res)=>{
+        console.log(res)
         return res.cartData;
     }).catch((err)=>{
         console.log(err);
@@ -40,7 +49,7 @@ export const getCartItems=(userID)=>(dispatch)=>{
 //Delete cart items
 export const deleteCartItem=(id)=>(dispatch)=>{
     const token=JSON.parse(localStorage.getItem("token"))
-    axios.delete(`https://unusual-gold-button.cyclic.app/cart/delete/${id}`,{
+    axios.delete(`https://poised-hem-frog.cyclic.app/cart/delete/${id}`,{
         headers: {
           Authorization: token,
         }}).then((res)=>{
@@ -55,7 +64,7 @@ export const deleteCartItem=(id)=>(dispatch)=>{
 
 //Add orders
 export const addOrder=(orderData)=>(dispatch)=>{
-    axios.post(`https://unusual-gold-button.cyclic.app/`,orderData).then((res)=>{
+    axios.post(`https://poised-hem-frog.cyclic.app/`,orderData).then((res)=>{
 
     }).catch((err)=>{
         console.log(err);
