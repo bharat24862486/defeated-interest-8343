@@ -4,7 +4,7 @@ import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, SIGNUP_FAILURE, SIGNUP_REQ
 //User Sign Up
 export const forSignup=(signupData)=>(dispatch)=>{
     dispatch({type:SIGNUP_REQUEST});
-    return axios.post(`https://poised-hem-frog.cyclic.app/user/register`,signupData).then((res)=>{
+    return axios.post(`https://weak-ruby-bull-wear.cyclic.app/user/register`,signupData).then((res)=>{
         console.log(res);
         dispatch({type:SIGNUP_SUCCESS});
         return true;
@@ -17,7 +17,7 @@ export const forSignup=(signupData)=>(dispatch)=>{
 //User Login 
 export const forLogin=(loginData)=>(dispatch)=>{
     dispatch({type:LOGIN_REQUEST});
-    return axios.post(`http://localhost:0880/user/login`,loginData).then((res)=>{
+    return axios.post(`https://weak-ruby-bull-wear.cyclic.app/user/login`,loginData).then((res)=>{
         console.log(res);
         dispatch({type:LOGIN_SUCCESS});
         localStorage.setItem("token",JSON.stringify(res.data.token))
@@ -35,12 +35,12 @@ export const getCartItems=()=>(dispatch)=>{
     let id=JSON.parse(localStorage.getItem("userId"))
 
     console.log(token,id)
-   return axios.get(`http://localhost:0880/cart/${id}`,{
+   return axios.get(`https://weak-ruby-bull-wear.cyclic.app/cart/${id}`,{
     headers: {
       Authorization: token,
     }}).then((res)=>{
-        console.log(res)
-        return res.cartData;
+        //console.log(res)
+        return res.data.cartData;
     }).catch((err)=>{
         console.log(err);
     })
@@ -49,7 +49,7 @@ export const getCartItems=()=>(dispatch)=>{
 //Delete cart items
 export const deleteCartItem=(id)=>(dispatch)=>{
     const token=JSON.parse(localStorage.getItem("token"))
-    axios.delete(`https://poised-hem-frog.cyclic.app/cart/delete/${id}`,{
+    axios.delete(`https://weak-ruby-bull-wear.cyclic.app/cart/delete/${id}`,{
         headers: {
           Authorization: token,
         }}).then((res)=>{
@@ -63,8 +63,8 @@ export const deleteCartItem=(id)=>(dispatch)=>{
 
 
 //Add orders
-export const addOrder=(orderData)=>(dispatch)=>{
-    axios.post(`https://poised-hem-frog.cyclic.app/`,orderData).then((res)=>{
+export const addOrder=(orderData,id)=>(dispatch)=>{
+    axios.post(`https://weak-ruby-bull-wear.cyclic.app/order/add/${id}`,orderData).then((res)=>{
 
     }).catch((err)=>{
         console.log(err);

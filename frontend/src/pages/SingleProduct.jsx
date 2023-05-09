@@ -42,7 +42,7 @@ function SingleProduct() {
   
 
   const handleGetData=()=>{
-    fetch(`https://poised-hem-frog.cyclic.app/product/single_product/${id}`,{
+    fetch(`https://weak-ruby-bull-wear.cyclic.app/product/single_product/${id}`,{
       method:"GET",
       headers:{
         "Content-Type":"application/json"
@@ -58,7 +58,7 @@ function SingleProduct() {
   }
   
   const hanleCartData1=(item)=>{
-    fetch("https://poised-hem-frog.cyclic.app/cart/add",{
+    fetch("https://weak-ruby-bull-wear.cyclic.app/cart/add",{
       method:"POST",
       body:JSON.stringify(item),
       headers:{

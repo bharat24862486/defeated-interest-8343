@@ -134,7 +134,7 @@ function Product() {
   const getProductData = ({ sort, category, discount, rating, price, page }) => {
     dispatch(getProductRequest());
     axios
-      .get("https://poised-hem-frog.cyclic.app/product", {
+      .get("https://weak-ruby-bull-wear.cyclic.app/product", {
         params: {
           sort: sort,
           category: category,
@@ -158,7 +158,7 @@ function Product() {
   const getProductData1 = () => {
     dispatch(getProductRequest());
     axios
-      .get("https://poised-hem-frog.cyclic.app/product")
+      .get("https://weak-ruby-bull-wear.cyclic.app/product")
       .then((res) => {
         //console.log("res",res)
         dispatch(getProductSuccess(res.data.product));
@@ -173,7 +173,7 @@ function Product() {
   }
 
   const hanleCartData = (item) => {
-    fetch("https://poised-hem-frog.cyclic.app/cart/add", {
+    fetch("https://weak-ruby-bull-wear.cyclic.app/cart/add", {
       method: "POST",
       body: JSON.stringify(item),
       headers: {

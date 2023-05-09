@@ -13,27 +13,28 @@ import { useLocation } from 'react-router-dom';
 
 const CartPage=()=>{
     const location = useLocation()
-const [cartItem,setCartItem]=useState([]);
+const [cartItems,setCartItems]=useState([]);
 const [totalP,setTotalP]=useState(0);
 const [disPrice,setDisPrice]=useState(0);
 const [check, setCheck] = useState(false)
 const dispatch=useDispatch();
-    let cartItems=[
-        {
-            img:"https://img8.hkrtcdn.com/14680/prd_1467907-HealthKart-Multivitamin-with-Multimineral-Amino-Acids-Taurine-Ginseng-Extract-90-tablets-Unflavoured_c_t.jpg",
-            name:"HealthKart HK Vitals Multivitamin with Multimineral,Taurine & Ginseng Extract, 90 table",
-            price:353,
-            discount:40,
-            quantity:2
-        },
-        {
-            img:"https://img8.hkrtcdn.com/14680/prd_1467907-HealthKart-Multivitamin-with-Multimineral-Amino-Acids-Taurine-Ginseng-Extract-90-tablets-Unflavoured_c_t.jpg",
-            name:"HealthKart HK Vitals Multivitamin with Multimineral,Taurine & Ginseng Extract, 90 table",
-            price:353,
-            quantity:1,
-            discount:50
-        }
-    ]
+    // let cartItems=[
+    //     {
+    //         img:"https://img8.hkrtcdn.com/14680/prd_1467907-HealthKart-Multivitamin-with-Multimineral-Amino-Acids-Taurine-Ginseng-Extract-90-tablets-Unflavoured_c_t.jpg",
+    //         name:"HealthKart HK Vitals Multivitamin with Multimineral,Taurine & Ginseng Extract, 90 table",
+    //         price:353,
+    //         discount:40,
+    //         quantity:2
+    //     },
+    //     {
+    //         img:"https://img8.hkrtcdn.com/14680/prd_1467907-HealthKart-Multivitamin-with-Multimineral-Amino-Acids-Taurine-Ginseng-Extract-90-tablets-Unflavoured_c_t.jpg",
+    //         name:"HealthKart HK Vitals Multivitamin with Multimineral,Taurine & Ginseng Extract, 90 table",
+    //         price:353,
+    //         quantity:1,
+    //         discount:50
+    //     }
+    // ]
+    console.log("cart",cartItems)
 const handlePayment=()=>{
     // dispatch(deleteCartItem(userID));
 
@@ -57,8 +58,8 @@ const handlePayment=()=>{
 
 useEffect(()=>{
     dispatch(getCartItems()).then((res)=>{
-        // const data=res.cartData;
-        // setCartItem(data);
+        const data=res.cartData;
+        setCartItems(data);
         
     })
     showTotal()
@@ -69,7 +70,7 @@ return (<>
       <Box><Nav makeTrue={makeTrue} />
         <Nev2 />
 { 
-cartItems.length==0?<Center mt={'3%'}>
+cartItems?.length==0?<Center mt={'3%'}>
     <VStack>
     <Image src='https://static1.hkrtcdn.com/hknext/static/media/cart/empty-cart-new.svg'/>
     <Text fontWeight={'bold'} fontSize={'lg'}>Hey, it feels so light!</Text>
@@ -81,10 +82,10 @@ cartItems.length==0?<Center mt={'3%'}>
 <Heading pb={'1%'} pt={'3%'} bg='#EEEEEE'>Cart Page</Heading>
         <Grid display={'flex'} justifyContent={['space-around','space-around','space-evenly']} bg='#EEEEEE' flexDirection={['column','column','row','row']} >
             <Box w={['50%',"80%",'60%']} bg='white' mb={'5%'} ml={'auto'} mr='auto'borderRadius={'10'} >
-                <Text fontSize={'20'} m={'2%'} display={'flex'} alignItems={'start'}>Shopping Cart ({cartItems.length} Items)</Text>
+                <Text fontSize={'20'} m={'2%'} display={'flex'} alignItems={'start'}>Shopping Cart ({cartItems?.length} Items)</Text>
                 <Divider/>
                 {
-          cartItems.map((ele)=>{
+          cartItems?.map((ele)=>{
 
               return <Box key={ele.id}>
                     <SingleCartItem {...ele}/>
