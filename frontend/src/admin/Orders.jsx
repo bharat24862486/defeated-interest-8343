@@ -56,7 +56,7 @@ const Orders = ({ orders }) => {
                 </Td>
                 <Td>{e.category}</Td>
                 <Td>{e.title}</Td>
-                <Td>{e.price.substring(0, 28).concat("...")}</Td>
+                <Td>{e.price}</Td>
                 <Td cursor="pointer">Pending</Td>
                 <Td cursor={"pointer"} onClick={() => deleteOrder(e._id)}>
                   <MdDeleteOutline />
