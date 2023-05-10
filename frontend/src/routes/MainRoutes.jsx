@@ -41,6 +41,14 @@ function MainRoutes() {
         }
       />
       <Route
+        path="/payment"
+        element={
+          <PrivateRoute>
+            <PaymentPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
         path="/admin/products"
         element={
           <PrivateRoute>

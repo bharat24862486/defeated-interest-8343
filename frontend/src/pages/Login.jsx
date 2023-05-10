@@ -18,7 +18,10 @@ import { useToast } from '@chakra-ui/react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { forLogin, forToast } from "../redux/user/actions";
-
+import Footer from '../component/Footer/Footer'
+import Nev2 from '../component/Navbar/Nev2'
+import MobNav3 from '../component/Navbar/MobNav3'
+import Nav from '../component/Navbar/Nav'
   const Login = () => {
   const intial={
     email:"",
@@ -28,7 +31,15 @@ import { forLogin, forToast } from "../redux/user/actions";
   const dispatch=useDispatch();
   const toast=useToast();
   const navigate=useNavigate();
-
+  const [check, setCheck] = useState(false)
+  function makeTrue() {
+    console.log("true")
+    setCheck(true)
+  }
+  function makeFalse() {
+    console.log("false")
+    setCheck(false)
+  }
 
   const handlechange=(e)=>{
     const {name,value}=e.target;
@@ -53,10 +64,10 @@ import { forLogin, forToast } from "../redux/user/actions";
   
   
     return (
-      <Box>
-        <Heading size={"lg"} m="10px">
-           Login Page
-        </Heading>
+      <Box>{check ? <MobNav3 makeFalse={makeFalse} /> :
+      <Box><Nav makeTrue={makeTrue} />
+        <Nev2 />
+      <Box mb={'5%'}>
         
           <Flex
             w={["90%",'80%','80%']}
@@ -97,6 +108,11 @@ import { forLogin, forToast } from "../redux/user/actions";
             </Box>
           </Flex>
       </Box>
+      <Footer />
+      </Box>}
+
+
+    </Box>
     );
   };
   

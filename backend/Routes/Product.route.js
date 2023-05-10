@@ -70,7 +70,7 @@ productRouter.get("/single_product/:id", async (req, res) => {
   }
 });
 
-productRouter.use(authentication);
+// productRouter.use(authentication);
 
 // AUTHORIZATION MIDDLEWARE
 productRouter.use(authorization);
