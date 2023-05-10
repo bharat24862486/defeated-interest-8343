@@ -43,7 +43,7 @@ const Admin_login = () => {
     e.preventDefault();
     setLoad(true);
     axios
-      .post("https://quaint-frog-bedclothes.cyclic.app/user/login", data)
+      .post("https://weak-ruby-bull-wear.cyclic.app/user/login", data)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         console.log("Login successfuly");

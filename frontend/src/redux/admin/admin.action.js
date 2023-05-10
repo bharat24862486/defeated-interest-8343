@@ -7,13 +7,14 @@ import { getData } from "./ls";
 export const getOrdersData = (dispatch) => {
   dispatch({ type: types.LOADING });
   axios
-    .get(`http://.localhost:0880/order/`, {
+    .get(`https://weak-ruby-bull-wear.cyclic.app/order/`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
     })
     .then((res) => {
-      dispatch({ type: types.GETORDERSDATA, payload: res.data });
+      dispatch({ type: types.GETORDERSDATA, payload: res.data.orderData });
+      console.log(res.data.orderData);
     })
     .catch(() => dispatch({ type: types.ERROR }));
 };
@@ -22,7 +23,7 @@ export const getOrdersData = (dispatch) => {
 export const getProductsCount = (dispatch) => {
   dispatch({ type: types.LOADING });
   axios
-    .get(`http://localhost:0880/product/product_count/`, {
+    .get(`https://weak-ruby-bull-wear.cyclic.app/product_count/`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -37,7 +38,7 @@ export const getProductsCount = (dispatch) => {
 export const DeleteOrdersData = (id) => (dispatch) => {
   dispatch({ type: types.LOADING });
   axios
-    .delete(`https://unusual-gold-button.cyclic.app/cartProducts/${id}`, {
+    .delete(`https://weak-ruby-bull-wear.cyclic.app/cartProducts/${id}`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -54,7 +55,7 @@ export const DeleteOrdersData = (id) => (dispatch) => {
 export const getAdminProducts = (dispatch) => {
   dispatch({ type: types.LOADING });
   axios
-    .get(`https://unusual-gold-button.cyclic.app/product/`, {
+    .get(`https://weak-ruby-bull-wear.cyclic.app/product/`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -71,7 +72,7 @@ export const getAdminProducts = (dispatch) => {
 export const AddAdminProducts = (details) => async (dispatch) => {
   dispatch({ type: types.LOADING });
   axios
-    .post(`https://unusual-gold-button.cyclic.app/product/create`, details, {
+    .post(`https://weak-ruby-bull-wear.cyclic.app/product/create`, details, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -89,7 +90,7 @@ export const AddAdminProducts = (details) => async (dispatch) => {
 export const DeleteAdminProducts = (id) => async (dispatch) => {
   dispatch({ type: types.LOADING });
   axios
-    .delete(`https://unusual-gold-button.cyclic.app/product/delete/${id}`, {
+    .delete(`https://weak-ruby-bull-wear.cyclic.app/product/delete/${id}`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -109,7 +110,7 @@ export const editAdminProducts = (id, changes) => async (dispatch) => {
   dispatch({ type: types.LOADING });
   axios
     .patch(
-      `https://unusual-gold-button.cyclic.app/product/update/${id}`,
+      `https://weak-ruby-bull-wear.cyclic.app/product/update/${id}`,
       changes,
       {
         headers: {
@@ -130,7 +131,7 @@ export const editAdminDetails = (id, changes) => async (dispatch) => {
   dispatch({ type: types.LOADING });
   axios
     .patch(
-      `https://unusual-gold-button.cyclic.app/users/adminUpdate/${id}`,
+      `https://weak-ruby-bull-wear.cyclic.app/users/adminUpdate/${id}`,
       changes,
       {
         headers: {
