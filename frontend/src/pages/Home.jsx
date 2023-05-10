@@ -60,6 +60,7 @@ const Home = () => {
         <HomeProductCard6 />
         <Footer />
       </Box>}
+
           <Banner />
           <Homefetch
             url={`https://unusual-gold-button.cyclic.app/product?category=Ayurveda`}
