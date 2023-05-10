@@ -52,7 +52,7 @@ const Orders = ({ orders }) => {
               <Tr key={i + 1}>
                 <Td>{i + 1}.</Td>
                 <Td>
-                  <Image w="60px" src={e.image[0]} />
+                  <Image w="60px" src={e.image[0].img} />
                 </Td>
                 <Td>{e.category}</Td>
                 <Td>{e.title}</Td>

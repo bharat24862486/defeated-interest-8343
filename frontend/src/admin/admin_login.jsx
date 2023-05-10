@@ -31,7 +31,7 @@ const Admin_login = () => {
   const handleShowClick = () => setShowPassword(!showPassword);
   const [data, setData] = useState(obj);
   const { email, password } = data;
-  let token = localStorage.getItem("token") || "";
+  let token = localStorage.getItem("admin_token") || "";
   let [load, setLoad] = useState(false);
 
   const handleChange = (e) => {
@@ -45,7 +45,7 @@ const Admin_login = () => {
     axios
       .post("https://weak-ruby-bull-wear.cyclic.app/user/login", data)
       .then((res) => {
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("admin_token", res.data.token);
         console.log("Login successfuly");
         window.location.href = "/admin/deshboard";
       })

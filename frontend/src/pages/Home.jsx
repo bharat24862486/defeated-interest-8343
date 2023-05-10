@@ -44,7 +44,6 @@ const Home = () => {
         <Box>
           <Nav makeTrue={makeTrue} />
           <Nev2 />
-
           <Banner />
           <Homefetch
             url={`https://unusual-gold-button.cyclic.app/product?category=Ayurveda`}
