@@ -24,6 +24,7 @@ export const getProductsCount = (dispatch) => {
   dispatch({ type: types.LOADING });
   axios
     .get(`https://weak-ruby-bull-wear.cyclic.app/product_count/`, {
+    .get(`https://weak-ruby-bull-wear.cyclic.app/product/product_count/`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },

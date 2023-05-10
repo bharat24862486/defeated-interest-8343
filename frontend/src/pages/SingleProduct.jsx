@@ -13,10 +13,14 @@ import Nev2 from "../component/Navbar/Nev2";
 import Nav from "../component/Navbar/Nav";
 import MobNav3 from "../component/Navbar/MobNav3";
 
+const dummydata={
+
+}
+
 
 function SingleProduct() {
   const [sdata, setSdata] = useState({});
-  const [imagedata, setImageData] = useState(sdata?.image && sdata?.image[0].img)
+  const [imagedata, setImageData] = useState(sdata?.image && sdata?.image[0]?.img)
   const [quantity, setQuantity] = useState(1);
 
   const [check, setCheck] = useState(false)
@@ -42,7 +46,7 @@ function SingleProduct() {
   
 
   const handleGetData=()=>{
-    fetch(`https://unusual-gold-button.cyclic.app/product/single_product/${id}`,{
+    fetch(`https://weak-ruby-bull-wear.cyclic.app/product/single_product/${id}`,{
       method:"GET",
       headers:{
         "Content-Type":"application/json"
@@ -58,12 +62,14 @@ function SingleProduct() {
   }
   
   const hanleCartData1=(item)=>{
-    fetch("https://unusual-gold-button.cyclic.app/cart/add",{
+   
+    //console.log("payload",payload)
+    fetch("https://weak-ruby-bull-wear.cyclic.app/cart/add",{
       method:"POST",
       body:JSON.stringify(item),
       headers:{
         "Content-Type":"application/json",
-        "Authorization":`${localStorage.getItem("token")}`
+        "Authorization":`${JSON.parse(localStorage.getItem("token"))}`
       }
     })
     .then((res)=>res.json())
@@ -87,7 +93,7 @@ function SingleProduct() {
     })
   }
   
-
+//console.log("token",localStorage.getItem("token"))
   
 //  let imageData=sdata?.image && sdata?.image[0].img
 //  console.log("img",imageData)
@@ -102,35 +108,35 @@ function SingleProduct() {
           <Box className="first-img-box-one">
             <Box
               border="2px solid #00B5B7"
-              onClick={() => setImageData(sdata?.image && sdata?.image[0].img)}
+              onClick={() => setImageData(sdata?.image && sdata?.image[0]?.img)}
               cursor={"pointer"}
             >
-              <Image src={sdata?.image && sdata?.image[0].img} />
+              <Image src={sdata?.image && sdata?.image[0]?.img} />
             </Box>
             <Box
               border="2px solid #00B5B7"
-              onClick={() => setImageData(sdata?.image && sdata?.image[1].img)}
+              onClick={() => setImageData(sdata?.image && sdata?.image[1]?.img)}
               cursor={"pointer"}
             >
-              <Image src={sdata?.image && sdata?.image[1].img} />
+              <Image src={sdata?.image && sdata?.image[1]?.img} />
             </Box>
             <Box
               border="2px solid #00B5B7"
-              onClick={() => setImageData(sdata?.image && sdata?.image[0].img)}
+              onClick={() => setImageData(sdata?.image && sdata?.image[0]?.img)}
               cursor={"pointer"}
             >
-              <Image src={sdata?.image && sdata?.image[0].img} />
+              <Image src={sdata?.image && sdata?.image[0]?.img} />
             </Box>
             <Box
               border="2px solid #00B5B7"
-              onClick={() => setImageData(sdata?.image && sdata?.image[1].img)}
+              onClick={() => setImageData(sdata?.image && sdata?.image[1]?.img)}
               cursor={"pointer"}
             >
-              <Image src={sdata?.image && sdata?.image[1].img} />
+              <Image src={sdata?.image && sdata?.image[1]?.img} />
             </Box>
           </Box>
           <Box className="first-img-box-two">
-            <Image src={sdata?.image && sdata?.image[0].img} />
+            <Image src={sdata?.image && sdata?.image[0]?.img} />
           </Box>
         </Box>
         <Box className="second-title-box">

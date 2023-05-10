@@ -45,6 +45,21 @@ const Home = () => {
           <Nav makeTrue={makeTrue} />
           <Nev2 />
 
+    <Box>{check ? <MobNav3 makeFalse={makeFalse} /> :
+      <Box><Nav makeTrue={makeTrue} />
+        <Nev2 />
+
+        <Banner />
+        <Homefetch url={`https://weak-ruby-bull-wear.cyclic.app/product?category=Ayurveda`} title={"Blockbuster Deals"} />
+        <HomeProductCard2 img1={b1} img2={b2} img3={b3} img4={b4} img5={b5} m={"2% 4%"} />
+        <Homefetch url={`https://weak-ruby-bull-wear.cyclic.app/product?category=Vitamin`} title={"Buy 1 Get 1 Free"} />
+        <HomeProductCard3 img1={b6} img2={b7} img3={b8} img4={b9} />
+        <Homefetch url={`https://weak-ruby-bull-wear.cyclic.app/product?category=Fitness`} title={"Extra 5% Off + 5% HK Cash"} />
+        <HomeProductCard4 />
+        <HomeProductCard5 />
+        <HomeProductCard6 />
+        <Footer />
+      </Box>}
           <Banner />
           <Homefetch
             url={`https://unusual-gold-button.cyclic.app/product?category=Ayurveda`}
