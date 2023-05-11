@@ -5,6 +5,8 @@ Healthcare is an online platform intended to provide authentic health and nutrit
 Original Website Link: "https://www.healthkart.com/"
 </br>
 Deployed Link of project: "https://frontend-vinaykumar7580.vercel.app/"
+                                                        
+                                                    Front End     
 
                                                     
                                                    Landing Page
@@ -19,3 +21,26 @@ Deployed Link of project: "https://frontend-vinaykumar7580.vercel.app/"
                                                  
 ![singleproduct](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/b9fa0c36-9526-4d50-a05d-8831795113e6)
                                                  
+                                                    Cart Page
+                                                    
+![cartpage](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/61da7327-ed0c-46f7-a458-80fec90102a8)
+
+
+                                                   Payment Page
+                                                   
+![payment-1](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/5d8a8e71-018f-4dfa-b056-92235dd007c2)
+![payment-2](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/b3ed4a47-5396-4b99-941d-60753d89fb6e)
+
+                                                      BackEnd
+                                                      
+                                                      
+                                                   Admin Dashboard
+
+                                                   
+
+
+
+
+
+
+                                                    
