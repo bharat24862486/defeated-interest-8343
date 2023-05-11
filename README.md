@@ -13,6 +13,17 @@ Deployed Link of project: "https://frontend-vinaykumar7580.vercel.app/"
                                      
 ![front](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/58b58b0a-485f-4411-9218-8ef0fd72d27c)
 
+
+                                                   Signup Page
+                                                   
+![signup](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/ed790a01-ea2d-453a-84b7-69e115efe4ef)
+
+
+                                                    Login Page
+                                                    
+ ![login page](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/40eb67e0-1aea-49d3-9a8c-9edb4f41c4cb)
+                                                   
+                                                   
                                                     Product Page
                                                     
 ![productpage](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/b5e0d8e0-2632-4f7b-8e5d-a66f0dafd365)
@@ -34,7 +45,9 @@ Deployed Link of project: "https://frontend-vinaykumar7580.vercel.app/"
                                                       BackEnd
                                                       
                                                       
-                                                   Admin Dashboard
+                                                   Admin Login
+                                                   
+![adminlogin](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/dbd6242f-bab8-45b8-818f-14dffac5713e)
 
                                                    
 
