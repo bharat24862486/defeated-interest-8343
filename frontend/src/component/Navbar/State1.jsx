@@ -1,17 +1,19 @@
 import { Box, Flex, ListItem, UnorderedList } from '@chakra-ui/react'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 
 const State1 = () => {
+    const navigate = useNavigate()
   return (
     <Box>
         <Flex justifyContent={"space-between"}>
-            <Box>
+            <Box cursor={"pointer"}>
                 <UnorderedList listStyleType={"none"} w={"100%"}>
                     <ListItem p={"4%"} fontWeight={"700"}>Proteins</ListItem>
                     <ListItem p={"4%"}> </ListItem>
-                    <ListItem p={"4%"}>Whey Proteins</ListItem>
+                    <ListItem p={"4%"} onClick={()=>navigate("/product")} >Whey Proteins</ListItem>
                     <ListItem p={"4%"}>Beginner Whey Proteins</ListItem>
                     <ListItem p={"4%"}>Whey Proteins Isolate</ListItem>
                     <ListItem p={"4%"}>Raw Whey Proteins</ListItem>
@@ -25,7 +27,7 @@ const State1 = () => {
 
 
 
-            <Box>
+            <Box cursor={"pointer"}>
                 <UnorderedList listStyleType={"none"} w={"100%"}>
                     <ListItem p={"4%"} fontWeight={"700"}>Gainers</ListItem>
                     <ListItem p={"4%"}> </ListItem>
@@ -46,7 +48,7 @@ Granola
 Protein Bars
 Protein Water */}
 
-            <Box>
+            <Box cursor={"pointer"}>
                 <UnorderedList listStyleType={"none"} w={"100%"}>
                     <ListItem p={"4%"} fontWeight={"700"}>Protein Foods</ListItem>
                     <ListItem p={"4%"}> </ListItem>
@@ -74,7 +76,7 @@ Nitric Oxide
 Other Supports
 Citrulline Malate */}
 
-            <Box>
+            <Box cursor={"pointer"}>
                 <UnorderedList listStyleType={"none"} w={"100%"}>
                     <ListItem p={"4%"} fontWeight={"700"}>Pre/Post Workout</ListItem>
                     <ListItem p={"4%"}> </ListItem>
@@ -101,7 +103,7 @@ ZMA */}
 
 
 
-            <Box>
+            <Box cursor={"pointer"}>
                 <UnorderedList listStyleType={"none"} w={"100%"}>
                     <ListItem p={"4%"} fontWeight={"700"}> Workout Essentials</ListItem>
                     <ListItem p={"4%"}> </ListItem>
