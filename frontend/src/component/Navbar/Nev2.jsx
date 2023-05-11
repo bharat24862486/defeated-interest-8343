@@ -2,7 +2,7 @@ import { Box, Button, Center, Flex, Grid, Popover, PopoverContent, PopoverTrigge
 import React, { useEffect, useState } from 'react'
 import { AiOutlineAlignLeft, AiFillGift } from 'react-icons/ai';
 import { BsFillTagsFill, BsFillAwardFill, BsChatRightDotsFill } from 'react-icons/bs';
-import { RiCoupon2Fill, RiCouponFill } from 'react-icons/ri';
+import { RiCoupon2Fill, RiCouponFill,RiAdminLine } from 'react-icons/ri';
 import { MdLocationPin } from 'react-icons/md';
 import State1 from './State1';
 import Nev2Hover from './Nev2Hover';
@@ -50,7 +50,7 @@ const Nev2 = () => {
             <Flex alignItems={"center"} justifyContent={"space-between"} onClick={()=>navigate("/product")}cursor={"pointer"}><RiCoupon2Fill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Delas</Text></Flex>
             <Flex alignItems={"center"} justifyContent={"space-between"} onClick={()=>navigate("/product")}cursor={"pointer"}><RiCouponFill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Blogs</Text></Flex>
             <Flex alignItems={"center"} justifyContent={"space-between"} onClick={()=>navigate("/product")}cursor={"pointer"}><AiFillGift color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Gift Cards</Text></Flex>
-            <Flex alignItems={"center"} justifyContent={"space-between"} onClick={()=>navigate("/product")}cursor={"pointer"}><BsChatRightDotsFill color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Customer Support</Text></Flex>
+            <Flex alignItems={"center"} justifyContent={"space-between"} onClick={()=>navigate("/admin/deshboard")}cursor={"pointer"}><RiAdminLine color='teal' size={"20"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Admin Login</Text></Flex>
             {/* <Flex alignItems={"center"} justifyContent={"space-between"} ><MdLocationPin color='teal' size={"22"} /> <Text fontSize={"1.4vw"} fontWeight={"500"}>Store Locator</Text></Flex> */}
 
         </Flex>
