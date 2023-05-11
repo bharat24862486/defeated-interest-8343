@@ -2,9 +2,20 @@
 # "Clone of HealthKart website"
 Healthcare is an online platform intended to provide authentic health and nutritional supplements. The company's platform provides a wide range of protein supplements, weight loss products, gym memberships, and personal trainers, enabling customers to access and buy a variety of fitness products on one platform.
 
+                                                                Tech Stack : 
+
+                                                 FrontEnd : React | Redux | Chakra UI
+                                      
+                                                  BackEnd : Nodejs | Express | Mongoose | Mongo DB
+                                                  
+                           Team Members : Bharat | Ram Surat | Vinaykumarv Hatwar | Om Kanta Pradad Yadav | Arun Kumar
+                           
+
 Original Website Link: "https://www.healthkart.com/"
 </br>
 Deployed Link of project: "https://frontend-vinaykumar7580.vercel.app/"
+                                            
+                           
                                                         
                                                     Front End     
 
@@ -42,6 +53,12 @@ Deployed Link of project: "https://frontend-vinaykumar7580.vercel.app/"
 ![payment-1](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/5d8a8e71-018f-4dfa-b056-92235dd007c2)
 ![payment-2](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/b3ed4a47-5396-4b99-941d-60753d89fb6e)
 
+
+                                                     Order Page
+                                                     
+![orderpage](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/d391a00b-fbb9-44f5-97f6-3aeeb80808cd)
+                                                     
+
                                                       BackEnd
                                                       
                                                       
@@ -64,12 +81,9 @@ Deployed Link of project: "https://frontend-vinaykumar7580.vercel.app/"
                                                               
 ![database](https://github.com/bharat24862486/defeated-interest-8343/assets/102684173/95dd79df-1011-4a49-bd22-6c6e68b432b8)
 
-
-
-
-
-
-                                                     
+                                         
+                                                      
+                                                                                  
 
 
 
