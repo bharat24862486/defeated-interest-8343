@@ -17,7 +17,7 @@ const MobNav3 = ({makeFalse}) => {
         <Box height={"100vh"}>
             <Box>
                 <Flex justifyContent={"space-between"} alignItems={"center"} bgColor={"#00B5B7"} p={"2%"}>
-                    <Box onClick={() => makeFalse()} width={["7%","8%","6%"]}><RxCross1 size={"100%"} color='white' /></Box>
+                    <Box onClick={() => makeFalse()} width={["7%","5%","4%"]}><RxCross1 size={"100%"} color='white' /></Box>
                     <Button color={"#00B5B7"} bgColor={"white"} m={"0% 5%"}>Login/Sign Up</Button>
                 </Flex>
                 <Box>

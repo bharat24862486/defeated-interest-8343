@@ -9,7 +9,7 @@ import { FiSearch } from 'react-icons/fi';
 
 const Nev1 = () => {
   return (
-    <Box pl={20} pr={20} pt={5} pb={5} borderBottom={"2px solid #B0BEC5"}>
+    <Box pl={20} pr={20} pt={"1%"} pb={"1%"} borderBottom={"2px solid #B0BEC5"}>
       <Flex alignItems={"center"} justifyContent={"space-between"}>
 
         <Image src={logo} w={"20%"} />
