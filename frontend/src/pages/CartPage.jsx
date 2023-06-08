@@ -118,7 +118,7 @@ const CartPage = () => {
                         </VStack>
 
                     </Center> : <>
-                        <Heading pb={'1%'} pt={'3%'} bg='#EEEEEE'>Cart Page</Heading>
+                        <Heading pb={'1%'} pt={'3%'} bg='#EEEEEE' textAlign={'center'} color={'#00ACC1'} pb={'5%'}>Cart Page</Heading>
                         <Grid display={'flex'} justifyContent={['space-around', 'space-around', 'space-evenly']} bg='#EEEEEE' flexDirection={['column', 'column', 'row', 'row']} >
                             <Box w={['50%', "80%", '60%']} bg='white' mb={'5%'} ml={'auto'} mr='auto' borderRadius={'10'} >
                                 <Text fontSize={'20'} m={'2%'} display={'flex'} alignItems={'start'}>Shopping Cart ({cartItems?.length} Items)</Text>

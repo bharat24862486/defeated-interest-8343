@@ -1,4 +1,4 @@
-import { Box, Grid, Heading, SimpleGrid } from '@chakra-ui/react'
+import { Box, Grid, Heading, SimpleGrid, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import HomeProductCard from './HomeProductCard'
@@ -6,6 +6,7 @@ import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 const Homefetch = ({title,url}) => {
+    const toast = useToast()
     const [data, setData] = useState([])
     let data1 = []
 
@@ -46,6 +47,36 @@ const Homefetch = ({title,url}) => {
 
 
 
+    const hanleCartData=(item)=>{
+        fetch("https://weak-ruby-bull-wear.cyclic.app/cart/add",{
+          method:"POST",
+          body:JSON.stringify(item),
+          headers:{
+            "Content-Type":"application/json",
+            "Authorization":`${localStorage.getItem("token")}`
+          }
+        })
+        .then((res)=>res.json())
+        .then((res)=>{
+          console.log(res)
+          toast({
+            description: "Product Added in Cart",
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+          })
+        })
+        .catch((err)=>{
+          console.log(err)
+          toast({
+            description: "Something Went Wrong",
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
+        })
+      }
+
 
 
 
@@ -59,7 +90,8 @@ const Homefetch = ({title,url}) => {
                <Box>
                <SimpleGrid  columns={[2,2,4]} gap={"1%"}>
                {data3?.map((el)=>{
-                    return <HomeProductCard image={el.image[0].img} price={el.price} title={el.title} off={el.discount}/>
+                console.log(el)
+                    return <HomeProductCard key={el._id} all={el} hanleCartData={hanleCartData}/>
                 })}
                </SimpleGrid>
                </Box>
@@ -67,7 +99,7 @@ const Homefetch = ({title,url}) => {
                <Box>
                <SimpleGrid columns={[2,2,4]} gap={"1%"}>
                {data4?.map((el)=>{
-                    return <HomeProductCard image={el.image[0].img} price={el.price} title={el.title} off={el.discount}/>
+                    return <HomeProductCard key={el._id} all={el} hanleCartData={hanleCartData}/>
                 })}
                </SimpleGrid>
                </Box>
