@@ -13,7 +13,7 @@ Healthcare is an online platform intended to provide authentic health and nutrit
 
 Original Website Link: "https://www.healthkart.com/"
 </br>
-Deployed Link of project: "https://frontend-vinaykumar7580.vercel.app/"
+Deployed Link of project: "https://defeated-interest-8343-9jv8.vercel.app/"
                                             
                            
                                                         
